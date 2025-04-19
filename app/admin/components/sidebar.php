@@ -106,12 +106,12 @@
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="" class="menu-link">
+                                <a href="registrar_grado.php" class="menu-link">
                                     <div data-i18n="Misc">Registrar Grado</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="" class="menu-link">
+                                <a href="listar_grados.php" class="menu-link">
                                     <div data-i18n="Misc">Listar Grados</div>
                                 </a>
                             </li>
