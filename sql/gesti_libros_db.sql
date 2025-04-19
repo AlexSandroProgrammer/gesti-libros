@@ -51,6 +51,8 @@ CREATE TABLE IF NOT EXISTS `grados` (
 CREATE TABLE IF NOT EXISTS `libros` (
   `id_libro` int NOT NULL AUTO_INCREMENT,
   `nombre_libro` tinytext COLLATE utf8mb4_general_ci NOT NULL,
+  `imagen` longtext COLLATE utf8mb4_general_ci,
+  `detalle` mediumtext COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`id_libro`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
