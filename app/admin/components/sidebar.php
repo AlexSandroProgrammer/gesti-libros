@@ -82,7 +82,7 @@
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand text-center justify-content-center">
                     <a href="index.php" class="justify-content-center text-center items-center">
-                        <img src="../../assets/images/gestilibro.png" width="120" height="120">
+                        <img src="../../assets/images/gestilibro.svg" width="100" height="100">
                     </a>
                     <a href="javascript:void(0);"
                         class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
