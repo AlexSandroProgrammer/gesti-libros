@@ -1,15 +1,14 @@
 <?php
-$titlePage = "Lista Empleados Activos";
+$titlePage = "Lista de Grados";
 require_once("../components/sidebar.php");
-// arreglo con ids de la consulta
-// $array_keys = [1, 3];
-// //*  CONSULTA PARA CONSUMIR LOS DATOS DE LOS EMPLEADOS ACTIVOS
-// $listaEmpleados = $connection->prepare("SELECT * FROM usuarios INNER JOIN tipo_usuario ON usuarios.id_tipo_usuario = tipo_usuario.id_tipo_usuario INNER JOIN estados ON usuarios.id_estado = estados.id_estado INNER JOIN ciudades ON usuarios.id_ciudad = ciudades.id_ciudad WHERE usuarios.id_tipo_usuario = :id_tipo_usuario AND usuarios.id_estado = :id_estado");
-// $listaEmpleados->bindParam(":id_tipo_usuario", $array_keys[1]);
-// $listaEmpleados->bindParam(":id_estado", $array_keys[0]);
-// $listaEmpleados->execute();
-// $empleados = $listaEmpleados->fetchAll(PDO::FETCH_ASSOC);
+
+//*  CONSULTA PARA CONSUMIR LOS DATOS DEL GRADO
+
+$listaGrados = $connection->prepare("SELECT * FROM grados AS g");
+$listaGrados->execute();
+$grados = $listaGrados->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!-- Content wrapper -->
 <div class="content-wrapper">
     <!-- Content -->
@@ -29,72 +28,46 @@ require_once("../components/sidebar.php");
                 </div>
                 <div class="row">
                     <div class="col-lg-12 mt-5">
-                        <table id="example"
-                            class="table table-striped table-bordered top-table table-responsive text-center"
-                            cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>Acciones</th>
-                                    <th>Nombre del Grado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- <?php foreach ($empleados as $empleado) {
-                                    // desencriptacion de contraseña
-                                    $password = bcrypt_password($empleado['password']);
-                                    $fecha_inicial = $empleado['fecha_inicio'];
-                                    $fecha_final = $empleado['fecha_fin'];
-                                    if (isNotEmpty([$fecha_inicial, $fecha_final])) {
-                                        $fecha_inicio = DateTime::createFromFormat('Y-m-d', $empleado['fecha_inicio'])->format('d/m/Y');
-                                        $fecha_fin = DateTime::createFromFormat('Y-m-d', $empleado['fecha_fin'])->format('d/m/Y');
-                                    }
-                                ?>
-                                <tr>
-                                    <td>
-                                        <form method="GET" actionz="">
-                                            <input type="hidden" name="id_employee-delete"
-                                                value="<?= $empleado['documento'] ?>">
-                                            <input type="hidden" name="ruta" value="empleados_activos.php">
-                                            <button class="btn btn-danger mt-2"
-                                                onclick="return confirm('¿Desea eliminar el registro seleccionado?');"
-                                                type="submit">
-                                                <i class="bx bx-trash" title="Eliminar"></i>
-                                            </button>
-                                        </form>
-                                        <form method="GET" class="mt-2" action="editar_empleado.php">
-                                            <input type="hidden" name="id_employee-edit"
-                                                value="<?= $empleado['documento'] ?>">
-                                            <input type="hidden" name="ruta" value="empleados_activos.php">
-                                            <button class="btn btn-success"
-                                                onclick="return confirm('¿Desea actualizar el registro seleccionado?');"
-                                                type="submit">
-                                                <i class="bx bx-refresh" title="Actualizar"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                    <td><?php echo $empleado['tipo_documento'] ?></td>
-                                    <td><?php echo $empleado['documento'] ?></td>
-                                    <td><?php echo $empleado['nombres'] ?></td>
-                                    <td><?php echo $empleado['apellidos'] ?></td>
-                                    <td><?php echo $empleado['celular'] ?></td>
-                                    <td><?php echo $password ?></td>
-                                    <td><?php echo $empleado['ciudad'] ?></td>
-                                    <td><?php echo $empleado['eps'] ?></td>
-                                    <td><?php echo $empleado['arl'] ?></td>
-                                    <td><?php echo $empleado['rh'] ?></td>
-                                    <td><?php echo $fecha_inicio ?></td>
-                                    <td><?php echo $fecha_fin ?></td>
-                                    <td><?php echo $empleado['nombre_familiar'] ?></td>
-                                    <td><?php echo $empleado['celular_familiar'] ?></td>
-                                    <td><?php echo $empleado['parentezco_familiar'] ?></td>
-                                    <td><?php echo $empleado['tipo_usuario'] ?></td>
-                                    <td><?php echo $empleado['estado'] ?></td>
-                                    <td><?php echo $empleado['fecha_registro'] ?></td>
-                                    <td><?php echo $empleado['fecha_actualizacion'] ?></td>
-                                </tr>
-                                <?php } ?> -->
-                            </tbody>
-                        </table>
+                        <div class="table-responsive w-100">
+                            <table id="example" class="table table-striped table-bordered top-table text-center"
+                                style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Acciones</th>
+                                        <th>Nombre del Grado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($grados as $grado): ?>
+                                    <tr>
+                                        <td>
+                                            <form method="GET" action="">
+                                                <input type="hidden" name="id_employee-delete"
+                                                    value="<?= $grado['id_grado'] ?>">
+                                                <input type="hidden" name="ruta" value="grados_activos.php">
+                                                <button class="btn btn-danger mt-2"
+                                                    onclick="return confirm('¿Desea eliminar el registro?');"
+                                                    type="submit">
+                                                    <i class="bx bx-trash" title="Eliminar"></i>
+                                                </button>
+                                            </form>
+                                            <form method="GET" class="mt-2" action="editar_grado.php">
+                                                <input type="hidden" name="id_employee-edit"
+                                                    value="<?= $grado['id_grado'] ?>">
+                                                <input type="hidden" name="ruta" value="grados_activos.php">
+                                                <button class="btn btn-success"
+                                                    onclick="return confirm('¿Desea actualizar el registro?');"
+                                                    type="submit">
+                                                    <i class="bx bx-refresh" title="Actualizar"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                        <td><?= $grado['grado'] ?></td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
 
                     </div>
                 </div>
@@ -103,7 +76,7 @@ require_once("../components/sidebar.php");
     </div>
     <!-- Modal -->
     <div class="modal fade" id="formGrado" tabindex="-1" aria-hidden="true">
-        <form class="modal-dialog" action="" method="POST" autocomplete="off" name="formRegisterState">
+        <form class="modal-dialog" action="" method="POST" autocomplete="off" name="formRegisterGrade">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel1">Registro de Grado</h5>
@@ -125,8 +98,8 @@ require_once("../components/sidebar.php");
                         Cancelar
                     </button>
                     <input type="submit" class="btn btn-primary" value="Registrar"></input>
-                    <input type="hidden" class="btn btn-info" value="formRegisterState"
-                        name="MM_formRegisterState"></input>
+                    <input type="hidden" class="btn btn-info" value="formRegisterGrade"
+                        name="MM_formRegisterGrade"></input>
                 </div>
             </div>
         </form>
