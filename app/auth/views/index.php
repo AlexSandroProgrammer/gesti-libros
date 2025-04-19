@@ -12,9 +12,7 @@ require_once("../controllers/AuthController.php");
             <div class="card-body">
                 <!-- Logo -->
                 <div class="justify-content-center text-center">
-                    <span class="demo">
-                        <img src="../../assets/images/urbes.svg" width="100" height="100" alt="">
-                    </span>
+                    <img src="../../assets/images/gestilibro.svg" width="100" height="100" alt="">
                 </div>
                 <!-- titulo del formulario -->
                 <div class="text-center">
