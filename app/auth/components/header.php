@@ -14,10 +14,10 @@ if (isset($_SESSION['rol']) || isset($_SESSION['username']) || isset($_SESSION['
     <meta charset="utf-8" />
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Urbes || Sistema Gestionador de Empleados</title>
+    <title>GestiLibro || Sistema Gestionador de Empleados</title>
     <meta name="description" content="" />
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../assets/images/urbes.svg" />
+    <link rel="icon" type="image/x-icon" href="../../assets/images/gestilibro.svg" />
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -41,8 +41,6 @@ if (isset($_SESSION['rol']) || isset($_SESSION['username']) || isset($_SESSION['
     <link rel="stylesheet" href="../../assets/vendor/css/pages/page-auth.css" />
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
 </head>
 
@@ -56,19 +54,19 @@ if (isset($_SESSION['rol']) || isset($_SESSION['username']) || isset($_SESSION['
             <div class="container-xxl flex-grow-1 p-3">
                 <nav class="navbar navbar-example navbar-expand-lg bg-light">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="javascript:void(0)">URBES.</a>
+                        <a class="navbar-brand" href="javascript:void(0)">GESTILIBRO.</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbar-ex-3">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbar-ex-3">
                             <div class="navbar-nav me-auto">
-                                <a class="nav-item nav-link active" href="javascript:void(0)">Autenticacion de
-                                    Usuarios</a>
+                                <a class="nav-item nav-link active" href="javascript:void(0)">Sistema de Gestion de
+                                    Libros</a>
                             </div>
                             <form id="navigationForm">
-                                <a class="btn btn-danger" href="https://urbes.com.co/operacion/mariquita/"><i
-                                        class='bx bx-home'></i> Regresar</a>
+                                <!-- <a class="btn btn-danger" href="https://urbes.com.co/operacion/mariquita/"><i
+                                        class='bx bx-home'></i> Regresar</a> -->
                             </form>
                         </div>
                     </div>
