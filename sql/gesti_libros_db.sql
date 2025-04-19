@@ -87,6 +87,18 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   PRIMARY KEY (`documento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+CREATE TABLE `tipo_usuario` (
+	`id_tipo_usuario` INT(11) NOT NULL AUTO_INCREMENT,
+	`tipo_usuario` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`id_tipo_usuario`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=2
+;
+
+
 -- La exportación de datos fue deseleccionada.
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
