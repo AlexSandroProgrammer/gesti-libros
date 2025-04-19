@@ -120,12 +120,12 @@
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="" class="menu-link">
+                                <a href="registrar_estudiante.php" class="menu-link">
                                     <div data-i18n="Misc">Registrar Estudiante</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="" class="menu-link">
+                                <a href="estudiantes.php" class="menu-link">
                                     <div data-i18n="Misc">Listar Estudiantes</div>
                                 </a>
                             </li>

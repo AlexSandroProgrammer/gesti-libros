@@ -4,7 +4,7 @@
 $fecha_registro = date('Y-m-d H:i:s');
 
 //* Registro de datos de empleados
-if ((isset($_POST["MM_formRegisterEmployee"])) && ($_POST["MM_formRegisterEmployee"] == "formRegisterEmployee")) {
+if ((isset($_POST["MM_formRegisterStudent"])) && ($_POST["MM_formRegisterStudent"] == "formRegisterStudent")) {
 
     // VARIABLES DE ASIGNACIÓN DE VALORES QUE SE ENVÍAN DESDE EL FORMULARIO DE REGISTRO DE ÁREA
     $tipo_documento = $_POST['tipo_documento'];
@@ -12,18 +12,9 @@ if ((isset($_POST["MM_formRegisterEmployee"])) && ($_POST["MM_formRegisterEmploy
     $nombres = $_POST['nombres'];
     $apellidos = $_POST['apellidos'];
     $celular = $_POST['celular'];
-    $celular_familiar = $_POST['celular_familiar'];
-    $nombre_familiar = $_POST['nombre_familiar'];
-    $ciudad = $_POST['ciudad'];
-    $parentezco_familiar = $_POST['parentezco_familiar'];
-    $fecha_inicio = $_POST['fecha_inicio'];
-    $fecha_fin = isset($_POST['fecha_fin']) && $_POST['fecha_fin'] !== '' ? $_POST['fecha_fin'] : null;
-    $estado = $_POST['estado'];
-    $eps = $_POST['eps'];
-    $arl = $_POST['arl'];
-    $password = $_POST['password'];
-    $rh = $_POST['rh'];
-    $tipo_rol = $_POST['tipo_rol'];
+    $grado_asignado = $_POST['grado_asignado'];
+
+
     // Validamos que no se haya recibido ningún dato vacío
     if (isEmpty([
         $tipo_documento,
@@ -31,19 +22,9 @@ if ((isset($_POST["MM_formRegisterEmployee"])) && ($_POST["MM_formRegisterEmploy
         $nombres,
         $apellidos,
         $celular,
-        $estado,
-        $celular_familiar,
-        $nombre_familiar,
-        $parentezco_familiar,
-        $eps,
-        $arl,
-        $password,
-        $fecha_inicio,
-        $ciudad,
-        $rh,
-        $tipo_rol
+        $grado_asignado,
     ])) {
-        showErrorFieldsEmpty("registrar_empleado.php");
+        showErrorFieldsEmpty("registrar_estudiante.php");
         exit();
     }
 
@@ -51,57 +32,45 @@ if ((isset($_POST["MM_formRegisterEmployee"])) && ($_POST["MM_formRegisterEmploy
     if (containsSpecialCharacters([
         $nombres,
         $apellidos,
-        $nombre_familiar
     ])) {
-        showErrorOrSuccessAndRedirect("error", "Error de digitación", "Por favor verifica que en ningún campo existan caracteres especiales. Los campos como el nombre, apellido o nombre del familiar no deben tener letras como la ñ o caracteres especiales.", "registrar_empleado.php");
+        showErrorOrSuccessAndRedirect("error", "Error de digitación", "Por favor verifica que en ningun campo existan caracteres especiales.", "registrar_estudiante.php");
         exit();
     }
+    
     // Preparamos una consulta para validar si ya existe un usuario con el mismo documento o celular
-    $userValidation = $connection->prepare("SELECT * FROM usuarios WHERE documento = :documento OR celular = :celular");
-    $userValidation->bindParam(':documento', $documento);
-    $userValidation->bindParam(':celular', $celular);
-    $userValidation->execute();
-    $resultValidation = $userValidation->fetchAll();
+    $studentRegister = $connection->prepare("SELECT * FROM usuarios WHERE documento = :documento OR celular = :celular");
+    $studentRegister->bindParam(':documento', $documento);
+    $studentRegister->bindParam(':celular', $celular);
+    $studentRegister->execute();
+    $studentValidation = $studentRegister->fetchAll();
 
     // Si la validación falla, mostramos un mensaje de error
-    if ($resultValidation) {
-        showErrorOrSuccessAndRedirect("error", "Error de registro", "Los datos ingresados ya están registrados, por favor verifica el número de documento y celular ingresados", "registrar_empleado.php");
+    if ($studentValidation) {
+        showErrorOrSuccessAndRedirect("error", "Error de registro", "Los datos ingresados ya están registrados, por favor verifica el número de documento y celular ingresados", "registrar_estudiante.php");
         exit();
     } else {
         try {
-            // encriptamos la contraseña
-            $password_hash = encrypt_password($password);
             // Insertamos los datos en la base de datos, incluyendo todos los campos requeridos
-            $registerEmployee = $connection->prepare("INSERT INTO usuarios(documento, tipo_documento, nombres, apellidos, celular, celular_familiar, parentezco_familiar, nombre_familiar, password, id_tipo_usuario, id_estado, fecha_registro, eps, arl, id_ciudad, fecha_inicio, fecha_fin, rh) VALUES(:documento, :tipo_documento, :nombres, :apellidos, :celular, :celular_familiar, :parentezco_familiar, :nombre_familiar, :password, :id_tipo_usuario, :id_estado, :fecha_registro, :eps, :arl, :ciudad, :fecha_inicio, :fecha_fin, :rh)");
-            // Vinculamos los parámetros
-            $registerEmployee->bindParam(':documento', $documento);
-            $registerEmployee->bindParam(':tipo_documento', $tipo_documento);
-            $registerEmployee->bindParam(':nombres', $nombres);
-            $registerEmployee->bindParam(':apellidos', $apellidos);
-            $registerEmployee->bindParam(':celular', $celular);
-            $registerEmployee->bindParam(':celular_familiar', $celular_familiar);
-            $registerEmployee->bindParam(':parentezco_familiar', $parentezco_familiar);
-            $registerEmployee->bindParam(':nombre_familiar', $nombre_familiar);
-            $registerEmployee->bindParam(':password', $password_hash);
-            $registerEmployee->bindParam(':id_tipo_usuario', $tipo_rol);
-            $registerEmployee->bindParam(':id_estado', $estado);
-            $registerEmployee->bindParam(':fecha_registro', $fecha_registro);
-            $registerEmployee->bindParam(':eps', $eps);
-            $registerEmployee->bindParam(':arl', $arl);
-            $registerEmployee->bindParam(':ciudad', $ciudad);
-            $registerEmployee->bindParam(':fecha_inicio', $fecha_inicio);
-            $registerEmployee->bindParam(':fecha_fin', $fecha_fin);
-            $registerEmployee->bindParam(':rh', $rh);
-            // Ejecutamos la consulta
-            $registerEmployee->execute();
+            $registerStudent = $connection->prepare("INSERT INTO usuarios(documento, tipo_documento, nombres, apellidos, celular, fecha_registro, id_grado) VALUES(:documento, :tipo_documento, :nombres, :apellidos, :celular, :fecha_registro, :id_grado)");
+            $registerStudent->bindParam(':documento', $documento);
+            $registerStudent->bindParam(':tipo_documento', $tipo_documento);
+            $registerStudent->bindParam(':nombres', $nombres);
+            $registerStudent->bindParam(':apellidos', $apellidos);
+            $registerStudent->bindParam(':celular', $celular);
+            $registerStudent->bindParam(':fecha_registro', $fecha_registro);
+            $registerStudent->bindParam(':id_grado', $grado_asignado);
+            $registerStudent->execute();
             // Verificamos si la inserción fue exitosa
-            if ($registerEmployee) {
-                showErrorOrSuccessAndRedirect("success", "Registro Exitoso", "Los datos se han registrado correctamente", "empleados_activos.php");
+            if ($registerStudent) {
+                showErrorOrSuccessAndRedirect("success", "Registro Exitoso", "Los datos se han registrado correctamente", "estudiantes.php");
+                exit();
+            }else{
+                showErrorOrSuccessAndRedirect("error", "Error de Registro", "Error al momento de registrar los datos.", "registrar_estudiante.php");
                 exit();
             }
         } catch (Exception $e) {
             // En caso de error, mostramos un mensaje y redirigimos
-            showErrorOrSuccessAndRedirect("error", "Error de Registro", "Error al momento de registrar los datos.", "registrar_empleado.php");
+            showErrorOrSuccessAndRedirect("error", "Error de Registro", "Error al momento de registrar los datos.", "registrar_estudiante.php");
             exit();
         }
     }
