@@ -80,20 +80,16 @@
         <div class="layout-container">
             <!-- Menu -->
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-                <div class="app-brand text-center">
-                    <a href="index.php" class=" justify-content-center text-center">
-                        <span class="demo">
-                            <img src="../../assets/images/urbes.svg" width="100" height="100" alt="">
-                        </span>
+                <div class="app-brand text-center justify-content-center">
+                    <a href="index.php" class="justify-content-center text-center items-center">
+                        <img src="../../assets/images/gestilibro.png" width="120" height="120">
                     </a>
                     <a href="javascript:void(0);"
                         class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
                         <i class="bx bx-chevron-left bx-sm align-middle"></i>
                     </a>
                 </div>
-                <div class="menu-inner-shadow"></div>
-                <ul class="menu-inner py-1">
-                    <!-- Dashboard -->
+                <ul class="menu-inner">
                     <li class="menu-item active">
                         <a href="index.php" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
