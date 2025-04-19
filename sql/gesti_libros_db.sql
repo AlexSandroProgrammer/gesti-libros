@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Versión del servidor:         10.4.32-MariaDB - mariadb.org binary distribution
+-- Versión del servidor:         8.0.30 - MySQL Community Server - GPL
 -- SO del servidor:              Win64
--- HeidiSQL Versión:             12.10.0.7000
+-- HeidiSQL Versión:             12.1.0.6537
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -16,28 +16,76 @@
 
 
 -- Volcando estructura de base de datos para gesti_libros_db
-CREATE DATABASE IF NOT EXISTS `gesti_libros_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+CREATE DATABASE IF NOT EXISTS `gesti_libros_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `gesti_libros_db`;
+
+-- Volcando estructura para tabla gesti_libros_db.detallep
+CREATE TABLE IF NOT EXISTS `detallep` (
+  `id_detalle` bigint NOT NULL AUTO_INCREMENT,
+  `id_usuario` bigint NOT NULL,
+  `id_prestamo` bigint NOT NULL,
+  PRIMARY KEY (`id_detalle`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla gesti_libros_db.estado
+CREATE TABLE IF NOT EXISTS `estado` (
+  `id_estado` int NOT NULL AUTO_INCREMENT,
+  `estado` tinytext COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id_estado`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla gesti_libros_db.grados
+CREATE TABLE IF NOT EXISTS `grados` (
+  `id_grado` smallint NOT NULL AUTO_INCREMENT,
+  `grado` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id_grado`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla gesti_libros_db.libros
+CREATE TABLE IF NOT EXISTS `libros` (
+  `id_libro` int NOT NULL AUTO_INCREMENT,
+  `nombre_libro` tinytext COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id_libro`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla gesti_libros_db.prestamo
+CREATE TABLE IF NOT EXISTS `prestamo` (
+  `id_prestamo` bigint NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL,
+  `hora_prestamo` time NOT NULL,
+  `fecha_entrega` date DEFAULT NULL,
+  `hora_entrega` time DEFAULT NULL,
+  `id_estado` int NOT NULL,
+  PRIMARY KEY (`id_prestamo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- La exportación de datos fue deseleccionada.
 
 -- Volcando estructura para tabla gesti_libros_db.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
-  `documento` bigint(20) NOT NULL,
-  `tipo_documento` varchar(100) DEFAULT NULL,
-  `nombres` varchar(255) NOT NULL,
-  `apellidos` varchar(255) NOT NULL,
-  `celular` varchar(20) NOT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `id_tipo_usuario` smallint(6) NOT NULL DEFAULT 0,
-  `id_estado` smallint(6) NOT NULL DEFAULT 0,
+  `documento` bigint NOT NULL,
+  `tipo_documento` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nombres` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `apellidos` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `celular` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id_tipo_usuario` smallint NOT NULL DEFAULT '0',
+  `id_estado` smallint NOT NULL DEFAULT '0',
   `fecha_registro` datetime DEFAULT NULL,
   `fecha_actualizacion` datetime DEFAULT NULL,
-  `id_ciudad` smallint(6) DEFAULT NULL,
+  `id_grado` smallint DEFAULT NULL,
   PRIMARY KEY (`documento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla gesti_libros_db.usuarios: ~1 rows (aproximadamente)
-INSERT INTO `usuarios` (`documento`, `tipo_documento`, `nombres`, `apellidos`, `celular`, `password`, `id_tipo_usuario`, `id_estado`, `fecha_registro`, `fecha_actualizacion`, `id_ciudad`) VALUES
-	(1110460410, 'C.C.', 'Administrador', 'Gestor', '3105853668', 'WGVGbUN2QnZuSExsemg5QjdFa1BVUT09OjoZN8tnbOc3uZPY4PrhEmk8', 1, 1, '2024-03-09 15:26:38', '2024-09-20 15:57:09', 1);
+-- La exportación de datos fue deseleccionada.
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
