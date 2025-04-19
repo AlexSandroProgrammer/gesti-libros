@@ -9,7 +9,7 @@
     <title>GestiLibro || <?php echo $titlePage ?> </title>
     <meta name="description" content="" />
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../assets/images/urbes.svg" />
+    <link rel="icon" type="image/x-icon" href="../../assets/images/gestilibro.svg" />
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
