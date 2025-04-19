@@ -1,18 +1,6 @@
 <?php
 $titlePage = "Panel de Administrador";
 require_once("../components/sidebar.php");
-// Obtener vehículos desde la base de datos que tengan fechas de vencimiento
-$queryVehiculos = $connection->prepare("SELECT placa, vehiculo, fecha_soat, fecha_tecno FROM vehiculos");
-$queryVehiculos->execute();
-$vehiculos = $queryVehiculos->fetchAll(PDO::FETCH_ASSOC);
-// Función para calcular días restantes
-function calcularDiasRestantes($fecha_vencimiento)
-{
-    $fecha_actual = new DateTime();
-    $fecha_vencimiento = new DateTime($fecha_vencimiento);
-    $diferencia = $fecha_actual->diff($fecha_vencimiento);
-    return $diferencia->days * ($fecha_vencimiento > $fecha_actual ? 1 : -1); // Si la fecha ya pasó, devuelve negativo
-}
 ?>
 <!-- Content wrapper -->
 <div class="content-wrapper">
@@ -26,11 +14,10 @@ function calcularDiasRestantes($fecha_vencimiento)
                             <div class="card-body">
                                 <h5 class="card-title text-primary">Bienvenido(a) Administrador!🎉</h5>
                                 <p class="mb-4">
-                                    En este Panel de Administrador puedes gestionar los diferentes datos de los
-                                    empleados de tu empresa...
+                                    En este Panel de Administrador puedes gestionar los prestamos de libros en tu
+                                    institucion...
                                 </p>
-                                <a href="empleados_activos.php" class="btn btn-sm btn-outline-primary">Ver Empleados
-                                    Activos</a>
+                                <a href="empleados_activos.php" class="btn btn-sm btn-outline-primary">Ver Prestamos</a>
                             </div>
                         </div>
                         <div class="col-sm-5 text-center text-sm-left">
@@ -43,48 +30,6 @@ function calcularDiasRestantes($fecha_vencimiento)
                     </div>
                 </div>
             </div>
-            <!-- Alertas de vehículos con fechas cercanas de vencimiento -->
-            <?php
-            foreach ($vehiculos as $vehiculo) {
-                  $dias_restantes_soat = calcularDiasRestantes($vehiculo['fecha_soat']);
-                  $dias_restantes_tecno = calcularDiasRestantes($vehiculo['fecha_tecno']);
-    
-                   // Alerta para el SOAT
-                if ($dias_restantes_soat < 0) {
-                 // SOAT vencido
-                    echo "
-                   <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                     <strong>Alerta de SOAT:</strong> El vehículo con placa <strong>{$vehiculo['placa']}</strong> está <strong>vencido</strong> desde hace <strong>" . abs($dias_restantes_soat) . " días</strong>.
-                     <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                  </div>";
-             } elseif ($dias_restantes_soat             <= 15) {
-             // SOAT por vencer
-                echo "
-                <div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                   <strong>Alerta de SOAT:</strong> El vehículo con placa <strong>{$vehiculo['placa']}</strong> le quedan <strong>{$dias_restantes_soat} días</strong> para el vencimiento del SOAT.
-                  <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                </div>";
-           }
-
-      // Alerta para la Tecnomecánica
-        if ($dias_restantes_tecno < 0) {
-          // Tecnomecánica vencida
-           echo "
-             <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-               <strong>Alerta de Tecnomecánica:</strong> El vehículo con placa <strong>{$vehiculo['placa']}</strong> está <strong>vencido</strong> desde hace <strong>" . abs($dias_restantes_tecno) . " días</strong>.
-               <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-          </div>";
-      } elseif ($dias_restantes_tecno <= 15) {
-        // Tecnomecánica por vencer
-        echo "
-        <div class='alert alert-warning alert-dismissible fade show' role='alert'>
-            <strong>Alerta de Tecnomecánica:</strong> El vehículo con placa <strong>{$vehiculo['placa']}</strong> le quedan <strong>{$dias_restantes_tecno} días</strong> para el vencimiento de la Tecnomecánica.
-            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-        </div>";
-    }
-}
-?>
-
             <!-- Order Statistics -->
             <div class="col-md-6 col-lg-12 col-xl-6 order-0 mb-4">
                 <div class="card h-100">
@@ -180,11 +125,10 @@ function calcularDiasRestantes($fecha_vencimiento)
                     </div>
                 </div>
             </div>
-
             <!-- Más estadísticas y contenido -->
             <?php
-            cardStadicts("conteo", "estados", "estados.php", "Estados");
-            cardStadicts("conteo", "ciudades", "ciudades.php", "Ciudades");
+            // cardStadicts("conteo", "estados", "estados.php", "Estados");
+            // cardStadicts("conteo", "ciudades", "ciudades.php", "Ciudades");
             ?>
         </div>
     </div>

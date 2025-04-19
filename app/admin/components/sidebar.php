@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Urbes || <?php echo $titlePage ?> </title>
+    <title>GestiLibro || <?php echo $titlePage ?> </title>
     <meta name="description" content="" />
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/images/urbes.svg" />
@@ -106,310 +106,100 @@
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-star"></i>
-                            <div data-i18n="Misc">Reg. Actividades</div>
+                            <div data-i18n="Misc">Grados</div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                    <div data-i18n="Misc">Mariquita</div>
+                                <a href="" class="menu-link">
+                                    <div data-i18n="Misc">Registrar Grado</div>
                                 </a>
-                                <ul class="menu-sub">
-                                    <li class="menu-item">
-                                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                            <div data-i18n="Misc">Veh. Compactador</div>
-                                        </a>
-                                        <ul class="menu-sub">
-                                            <li class="menu-item">
-                                                <a href="lista_recolecciones_mariquita.php" class="menu-link">
-                                                    <div data-i18n="Misc">Recoleccion</div>
-                                                </a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="lista_disposicion_mariquita.php" class="menu-link">
-                                                    <div data-i18n="Misc">Disposicion</div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="areas_publicas_mariquita.php" class="menu-link">
-                                            <div data-i18n="Misc">Areas Publicas</div>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="carro_barrido_mariquita.php" class="menu-link">
-                                            <div data-i18n="Misc">Carro Barrido</div>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
                             <li class="menu-item">
-                                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                    <div data-i18n="Misc">Sevilla</div>
+                                <a href="" class="menu-link">
+                                    <div data-i18n="Misc">Listar Grados</div>
                                 </a>
-                                <ul class="menu-sub">
-                                    <li class="menu-item">
-                                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                            <div data-i18n="Misc">Veh. Compactador</div>
-                                        </a>
-                                        <ul class="menu-sub">
-                                            <li class="menu-item">
-                                                <a href="lista_recolecciones_sevilla.php" class="menu-link">
-                                                    <div data-i18n="Misc">Recoleccion</div>
-                                                </a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="lista_disposicion_sevilla.php" class="menu-link">
-                                                    <div data-i18n="Misc">Disposicion</div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="areas_publicas_sevilla.php" class="menu-link">
-                                            <div data-i18n="Misc">Areas Publicas</div>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="carro_barrido_sevilla.php" class="menu-link">
-                                            <div data-i18n="Misc">Carro Barrido</div>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
-                            <li class="menu-item">
-                                <a href="mecanica_vehiculo.php" class="menu-link">
-                                    <div data-i18n="Misc">Mec. Vehiculo Compactador</div>
-                                </a>
+                        </ul>
+                    </li>
 
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-star"></i>
+                            <div data-i18n="Misc">Estudiantes</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="" class="menu-link">
+                                    <div data-i18n="Misc">Registrar Estudiante</div>
+                                </a>
                             </li>
                             <li class="menu-item">
-                                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                    <div data-i18n="Misc">Aforos</div>
+                                <a href="" class="menu-link">
+                                    <div data-i18n="Misc">Listar Estudiantes</div>
                                 </a>
-                                <ul class="menu-sub">
+                            </li>
+                        </ul>
+                    </li>
 
-                                    <li class="menu-item">
-                                        <a href="lista_aforos.php" class="menu-link">
-                                            <div data-i18n="Misc">Lista Aforos</div>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="reporte_mensual.php" class="menu-link">
-                                            <div data-i18n="Misc">Reporte Mensual Aforo</div>
-                                        </a>
-                                    </li>
-                                </ul>
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-star"></i>
+                            <div data-i18n="Misc">Libros</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="" class="menu-link">
+                                    <div data-i18n="Misc">Registrar Libro</div>
+                                </a>
                             </li>
+                            <li class="menu-item">
+                                <a href="" class="menu-link">
+                                    <div data-i18n="Misc">Listar Libros</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        </ul>
-                    </li>
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-star"></i>
-                            <div data-i18n="Misc">Empleados</div>
+                            <div data-i18n="Misc">Usuarios</div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="empleados_activos.php" class="menu-link">
-                                    <div data-i18n="Error">Lis. Empleados Activos</div>
+                                <a href="" class="menu-link">
+                                    <div data-i18n="Misc">Registrar Usuario</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="empleados_bloqueados.php" class="menu-link">
-                                    <div data-i18n="Error">Lis. Empleados Bloqueados</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="empleados_eliminados.php" class="menu-link">
-                                    <div data-i18n="Error">Lis. Empleados Eliminados</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="registrar_empleado.php" class="menu-link">
-                                    <div data-i18n="Error">Registrar Empleado</div>
+                                <a href="" class="menu-link">
+                                    <div data-i18n="Misc">Listar Usuarios</div>
                                 </a>
                             </li>
                         </ul>
                     </li>
+
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-star"></i>
-                            <div data-i18n="Misc">Conductores</div>
+                            <div data-i18n="Misc">Prestamos</div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="conductores_activos.php" class="menu-link">
-                                    <div data-i18n="Error">Lis. Conductores Activos</div>
+                                <a href="" class="menu-link">
+                                    <div data-i18n="Misc">Registrar Prestamo</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="conductores_bloqueados.php" class="menu-link">
-                                    <div data-i18n="Error">Lis. Conductores Bloqueados</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="conductores_eliminados.php" class="menu-link">
-                                    <div data-i18n="Error">Lis. Conductores Eliminados</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="registrar_empleado.php" class="menu-link">
-                                    <div data-i18n="Error">Registrar Conductor</div>
+                                <a href="" class="menu-link">
+                                    <div data-i18n="Misc">Listar Prestamos</div>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-star"></i>
-                            <div data-i18n="Misc">Administradores</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="registrar_socio.php" class="menu-link">
-                                    <div data-i18n="Error">Registrar Administrador</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="socios_activos.php" class="menu-link">
-                                    <div data-i18n="Error">Lis. Administradores Activos</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="socios_bloqueados.php" class="menu-link">
-                                    <div data-i18n="Error">Lis. Administradores Bloqueados</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="socios_eliminados.php" class="menu-link">
-                                    <div data-i18n="Error">Lis. Administradores Eliminados</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-star"></i>
-                            <div data-i18n="Misc">Estados Usuario</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="estados.php" class="menu-link">
-                                    <div data-i18n="Error">Lista de Estados</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-star"></i>
-                            <div data-i18n="Misc">Actividades</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="actividades.php" class="menu-link">
-                                    <div data-i18n="Error">Lista de Actividades</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-star"></i>
-                            <div data-i18n="Misc">Ciudades de Operacion</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="ciudades.php" class="menu-link">
-                                    <div data-i18n="Error">Lista de ciudades</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-star"></i>
-                            <div data-i18n="Misc">Vehiculos de Operacion</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="vehiculos.php" class="menu-link">
-                                    <div data-i18n="Error">Lista de vehiculos</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-star"></i>
-                            <div data-i18n="Misc">Empresas</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="empresas.php" class="menu-link">
-                                    <div data-i18n="Error">Lista de Empresas</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-star"></i>
-                            <div data-i18n="Misc">Labores</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="labores.php" class="menu-link">
-                                    <div data-i18n="Error">Lista de labores</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-star"></i>
-                            <div data-i18n="Misc">Rutas Barrido</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="zonas.php" class="menu-link">
-                                    <div data-i18n="Error">Lista de Rutas</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-star"></i>
-                            <div data-i18n="Misc">Rutas Recoleccion</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="rutas.php" class="menu-link">
-                                    <div data-i18n="Error">Lista de Rutas</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text">Otros</span>
-                    </li>
-                    <li class="menu-item">
-                        <a href="perfil.php" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-user"></i>
-                            <div data-i18n="Documentation">Mis Datos</div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="index.php?logout" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-power-off"></i>
-                            <div data-i18n="Documentation">Cerrar Sesion</div>
-                        </a>
-                    </li>
+
                 </ul>
             </aside>
-            <!-- / Menu -->
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
