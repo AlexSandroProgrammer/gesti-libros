@@ -139,12 +139,7 @@
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="" class="menu-link">
-                                    <div data-i18n="Misc">Registrar Libro</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="" class="menu-link">
+                                <a href="listar_libros.php" class="menu-link">
                                     <div data-i18n="Misc">Listar Libros</div>
                                 </a>
                             </li>
