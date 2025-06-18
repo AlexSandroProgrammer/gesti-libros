@@ -2,8 +2,8 @@
 $titlePage = "Lista de Libros";
 require_once("../components/sidebar.php");
 
-//*  CONSULTA PARA CONSUMIR LOS DATOS DE LOS LIBROS
 
+//*  CONSULTA PARA CONSUMIR LOS DATOS DE LOS LIBROS
 $listaLibros = $connection->prepare("SELECT * FROM libros AS g");
 $listaLibros->execute();
 $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
@@ -62,8 +62,14 @@ $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
                                             </form>
                                         </td>
                                         <td><?= $libro['nombre_libro'] ?></td>
-                                        <td><?= $libro['imagen'] ?></td>
                                         <td><?= $libro['detalle'] ?></td>
+                                        <td>
+                                            <button class="btn btn-primary"
+                                                onclick="verImagenLibro('<?= '../assets/img/' . $libro['imagen'] ?>')">
+                                                <i class="fas fa-image"></i>
+                                                Ver Imagen
+                                            </button>
+                                        </td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -75,36 +81,18 @@ $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="formGrado" tabindex="-1" aria-hidden="true">
-        <form class="modal-dialog" action="" method="POST" autocomplete="off" name="formRegisterGrade">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel1">Registro de Grado</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label" for="grado">Nombre del Grado</label>
-                        <div class="input-group input-group-merge">
-                            <span id="nombre_area-span" class="input-group-text"><i class="fas fa-layer-group"></i>
-                            </span>
-                            <input type="text" required minlength="2" maxlength="100" autofocus class="form-control"
-                                name="grado" id="grado" placeholder="Ingresa el nombre del grado" />
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                        Cancelar
-                    </button>
-                    <input type="submit" class="btn btn-primary" value="Registrar"></input>
-                    <input type="hidden" class="btn btn-info" value="formRegisterGrade"
-                        name="MM_formRegisterGrade"></input>
-                </div>
-            </div>
-        </form>
-    </div>
+
+    <script>
+    function verImagenLibro(imageUrl) {
+        Swal.fire({
+            title: 'Imagen del Libro',
+            imageUrl: imageUrl,
+            imageAlt: 'Imagen del Libro',
+            width: '350px',
+        });
+    }
+    </script>
+
 
     <?php
     require_once("../components/footer.php")
