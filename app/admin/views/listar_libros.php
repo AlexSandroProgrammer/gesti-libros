@@ -2,11 +2,11 @@
 $titlePage = "Lista de Libros";
 require_once("../components/sidebar.php");
 
-//*  CONSULTA PARA CONSUMIR LOS DATOS DEL GRADO
+//*  CONSULTA PARA CONSUMIR LOS DATOS DE LOS LIBROS
 
-$listaGrados = $connection->prepare("SELECT * FROM grados AS g");
-$listaGrados->execute();
-$grados = $listaGrados->fetchAll(PDO::FETCH_ASSOC);
+$listaLibros = $connection->prepare("SELECT * FROM libros AS g");
+$listaLibros->execute();
+$libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- Content wrapper -->
@@ -17,13 +17,10 @@ $grados = $listaGrados->fetchAll(PDO::FETCH_ASSOC);
             <h2 class="card-header font-bold">Listar Libros</h2>
             <div class="card-body">
                 <div class="row gy-3 mb-3">
-                    <!-- Default Modal -->
                     <div class="col-lg-4 col-md-6">
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#formGrado">
-                            <i class="fas fa-clipboard-list"></i> Registrar Grado
-                        </button>
+                        <a class="btn btn-primary" href="registrar_libro.php">
+                            <i class="fas fa-plus-circle"></i> Registrar Libro
+                        </a>
                     </div>
                 </div>
                 <div class="row">
@@ -34,27 +31,29 @@ $grados = $listaGrados->fetchAll(PDO::FETCH_ASSOC);
                                 <thead>
                                     <tr>
                                         <th>Acciones</th>
-                                        <th>Nombre del Grado</th>
+                                        <th>Nombre del Libro</th>
+                                        <th>Descripcion</th>
+                                        <th>Imagen del Libro</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($grados as $grado): ?>
+                                    <?php foreach ($libros as $libro): ?>
                                     <tr>
                                         <td>
                                             <form method="GET" action="">
                                                 <input type="hidden" name="id_employee-delete"
-                                                    value="<?= $grado['id_grado'] ?>">
-                                                <input type="hidden" name="ruta" value="grados_activos.php">
+                                                    value="<?= $libro['id_libro'] ?>">
+                                                <input type="hidden" name="ruta" value="libros_activos.php">
                                                 <button class="btn btn-danger mt-2"
                                                     onclick="return confirm('¿Desea eliminar el registro?');"
                                                     type="submit">
                                                     <i class="bx bx-trash" title="Eliminar"></i>
                                                 </button>
                                             </form>
-                                            <form method="GET" class="mt-2" action="editar_grado.php">
+                                            <form method="GET" class="mt-2" action="editar_libro.php">
                                                 <input type="hidden" name="id_employee-edit"
-                                                    value="<?= $grado['id_grado'] ?>">
-                                                <input type="hidden" name="ruta" value="grados_activos.php">
+                                                    value="<?= $libro['id_libro'] ?>">
+                                                <input type="hidden" name="ruta" value="libros_activos.php">
                                                 <button class="btn btn-success"
                                                     onclick="return confirm('¿Desea actualizar el registro?');"
                                                     type="submit">
@@ -62,7 +61,9 @@ $grados = $listaGrados->fetchAll(PDO::FETCH_ASSOC);
                                                 </button>
                                             </form>
                                         </td>
-                                        <td><?= $grado['grado'] ?></td>
+                                        <td><?= $libro['nombre_libro'] ?></td>
+                                        <td><?= $libro['imagen'] ?></td>
+                                        <td><?= $libro['detalle'] ?></td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
