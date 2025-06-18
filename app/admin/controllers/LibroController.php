@@ -25,8 +25,9 @@ if ((isset($_POST["MM_formRegisterLibrary"])) && ($_POST["MM_formRegisterLibrary
         if (in_array($fileExtension, $allowedfileExtensions)) {
             if ($fileSize <= 10 * 1024 * 1024) { // 10 MB en bytes
                 $uploadFileDir = '../assets/img/';
-                $newFileName = uniqid('libro_', true) . '.' . $fileExtension;
-                $dest_path = $uploadFileDir . $newFileName;
+                // Normalizamos el nombre del libro para el nombre de la imagen
+                $nombreImagen = 'libro_' . strtolower(str_replace(' ', '_', $nombre_libro)) . '.' . $fileExtension;
+                $dest_path = $uploadFileDir . $nombreImagen;
 
                 if (move_uploaded_file($fileTmpPath, $dest_path)) {
                     // CONSULTA SQL PARA VERIFICAR SI EL REGISTRO YA EXISTE EN LA BASE DE DATOS
@@ -44,7 +45,7 @@ if ((isset($_POST["MM_formRegisterLibrary"])) && ($_POST["MM_formRegisterLibrary
                         $registerLibrary = $connection->prepare("INSERT INTO libros(nombre_libro, detalle, imagen) VALUES(:nombre_libro, :descripcion_libro, :imagen)");
                         $registerLibrary->bindParam(':nombre_libro', $nombre_libro);
                         $registerLibrary->bindParam(':descripcion_libro', $descripcion_libro);
-                        $registerLibrary->bindParam(':imagen', $newFileName);
+                        $registerLibrary->bindParam(':imagen', $nombreImagen);
                         $registerLibrary->execute();
 
                         if ($registerLibrary) {

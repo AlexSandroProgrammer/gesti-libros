@@ -101,9 +101,15 @@ require_once("../components/sidebar.php");
             }
             reader.readAsDataURL(file);
         } else {
-            alert('Por favor selecciona un archivo de imagen valido.');
-            event.target.value = '';
-            container.style.display = 'none';
+            Swal.fire({
+                icon: 'info',
+                title: 'Error tipo de archivo',
+                text: 'Por favor, selecciona un archivo de imagen válido.',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                event.target.value = '';
+                container.style.display = 'none';
+            });
         }
     }
     </script>
