@@ -2,7 +2,6 @@
 $titlePage = "Lista de Libros";
 require_once("../components/sidebar.php");
 
-
 //*  CONSULTA PARA CONSUMIR LOS DATOS DE LOS LIBROS
 $listaLibros = $connection->prepare("SELECT * FROM libros AS g");
 $listaLibros->execute();
@@ -23,60 +22,44 @@ $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
                         </a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12 mt-5">
-                        <div class="table-responsive w-100">
-                            <table id="example" class="table table-striped table-bordered top-table text-center"
-                                style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>Acciones</th>
-                                        <th>Nombre del Libro</th>
-                                        <th>Descripcion</th>
-                                        <th>Imagen del Libro</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($libros as $libro): ?>
-                                    <tr>
-                                        <td>
-                                            <form method="GET" action="">
-                                                <input type="hidden" name="id_employee-delete"
-                                                    value="<?= $libro['id_libro'] ?>">
-                                                <input type="hidden" name="ruta" value="libros_activos.php">
-                                                <button class="btn btn-danger mt-2"
-                                                    onclick="return confirm('¿Desea eliminar el registro?');"
-                                                    type="submit">
-                                                    <i class="bx bx-trash" title="Eliminar"></i>
-                                                </button>
-                                            </form>
-                                            <form method="GET" class="mt-2" action="editar_libro.php">
-                                                <input type="hidden" name="id_employee-edit"
-                                                    value="<?= $libro['id_libro'] ?>">
-                                                <input type="hidden" name="ruta" value="libros_activos.php">
-                                                <button class="btn btn-success"
-                                                    onclick="return confirm('¿Desea actualizar el registro?');"
-                                                    type="submit">
-                                                    <i class="bx bx-refresh" title="Actualizar"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                        <td><?= $libro['nombre_libro'] ?></td>
-                                        <td><?= $libro['detalle'] ?></td>
-                                        <td>
-                                            <button class="btn btn-primary"
-                                                onclick="verImagenLibro('<?= '../assets/img/' . $libro['imagen'] ?>')">
-                                                <i class="fas fa-image"></i>
-                                                Ver Imagen
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
 
+                <div class="row">
+                    <?php foreach ($libros as $libro): ?>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= htmlspecialchars($libro['nombre_libro']) ?></h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Detalle del Libro</h6>
+                            </div>
+                            <img class="img-fluid" src="../assets/img/<?= htmlspecialchars($libro['imagen']) ?>"
+                                alt="Imagen del libro">
+                            <div class="card-body">
+                                <p class="card-text"><?= htmlspecialchars($libro['detalle']) ?></p>
+
+                                <div class="d-flex justify-content-center gap-2">
+                                    <form method="GET" action="">
+                                        <input type="hidden" name="id_employee-delete"
+                                            value="<?= $libro['id_libro'] ?>">
+                                        <input type="hidden" name="ruta" value="libros_activos.php">
+                                        <button class="btn btn-danger btn-lg"
+                                            onclick="return confirm('¿Desea eliminar el registro?');" type="submit">
+                                            <i class="bx bx-trash" title="Eliminar"></i>
+                                        </button>
+                                    </form>
+
+                                    <form method="GET" action="editar_libro.php">
+                                        <input type="hidden" name="id_employee-edit" value="<?= $libro['id_libro'] ?>">
+                                        <input type="hidden" name="ruta" value="libros_activos.php">
+                                        <button class="btn btn-success btn-lg"
+                                            onclick="return confirm('¿Desea actualizar el registro?');" type="submit">
+                                            <i class="bx bx-refresh" title="Actualizar"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
@@ -88,12 +71,11 @@ $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
             title: 'Imagen del Libro',
             imageUrl: imageUrl,
             imageAlt: 'Imagen del Libro',
-            width: '350px',
+            width: window.innerWidth < 768 ? '90%' : '350px',
+            imageWidth: '100%',
+            imageHeight: 'auto'
         });
     }
     </script>
 
-
-    <?php
-    require_once("../components/footer.php")
-    ?>
+    <?php require_once("../components/footer.php") ?>
