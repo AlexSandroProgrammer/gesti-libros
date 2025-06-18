@@ -28,7 +28,7 @@ $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
                     <div class="col-md-6 col-lg-4">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h5 class="card-title"><?= htmlspecialchars($libro['nombre_libro']) ?></h5>
+                                <h4 class="card-title"><?= htmlspecialchars($libro['nombre_libro']) ?></h4>
                                 <h6 class="card-subtitle mb-2 text-muted">Detalle del Libro</h6>
                             </div>
                             <img class="img-fluid" src="../assets/img/<?= htmlspecialchars($libro['imagen']) ?>"
