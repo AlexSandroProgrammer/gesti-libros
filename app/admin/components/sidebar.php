@@ -153,12 +153,12 @@
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="" class="menu-link">
+                                <a href="registrar_usuario.php" class="menu-link">
                                     <div data-i18n="Misc">Registrar Usuario</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="" class="menu-link">
+                                <a href="listar_usuarios.php" class="menu-link">
                                     <div data-i18n="Misc">Listar Usuarios</div>
                                 </a>
                             </li>
@@ -172,13 +172,18 @@
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="" class="menu-link">
-                                    <div data-i18n="Misc">Registrar Prestamo</div>
+                                <a href="prestamos_pendientes.php" class="menu-link">
+                                    <div data-i18n="Misc">Prestamos Pendientes</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="" class="menu-link">
-                                    <div data-i18n="Misc">Listar Prestamos</div>
+                                <a href="prestamos_realizados.php" class="menu-link">
+                                    <div data-i18n="Misc">Prestamos Realizados</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="registrar_prestamo.php" class="menu-link">
+                                    <div data-i18n="Misc">Registrar Prestamo</div>
                                 </a>
                             </li>
                         </ul>

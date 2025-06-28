@@ -1,5 +1,5 @@
 <?php
-$titlePage = "Registro de Libro";
+$titlePage = "Registro de Grado";
 require_once("../components/sidebar.php");
 ?>
 <!-- Content wrapper -->
