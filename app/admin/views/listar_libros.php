@@ -2,7 +2,7 @@
 $titlePage = "Lista de Libros";
 require_once("../components/sidebar.php");
 
-//*  CONSULTA PARA CONSUMIR LOS DATOS DE LOS LIBROS
+//* CONSULTA PARA CONSUMIR LOS DATOS DE LOS LIBROS
 $listaLibros = $connection->prepare("SELECT * FROM libros AS g");
 $listaLibros->execute();
 $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
@@ -10,7 +10,6 @@ $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
 
 <!-- Content wrapper -->
 <div class="content-wrapper">
-    <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card mb-4">
             <h2 class="card-header font-bold">Listar Libros</h2>
@@ -23,59 +22,61 @@ $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
 
-                <div class="row">
-                    <?php foreach ($libros as $libro): ?>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h4 class="card-title"><?= htmlspecialchars($libro['nombre_libro']) ?></h4>
-                                <h6 class="card-subtitle mb-2 text-muted">Detalle del Libro</h6>
-                            </div>
-                            <img class="img-fluid" src="../assets/img/<?= htmlspecialchars($libro['imagen']) ?>"
-                                alt="Imagen del libro">
-                            <div class="card-body">
-                                <p class="card-text"><?= htmlspecialchars($libro['detalle']) ?></p>
-
-                                <div class="d-flex justify-content-center gap-2">
-                                    <form method="GET" action="">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th>Acciones</th>
+                                <th>Nombre del Libro</th>
+                                <th>Descripcion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($libros as $libro): ?>
+                            <tr>
+                                <td>
+                                    <button class="btn btn-primary mb-2"
+                                        onclick="verDetalleLibro('<?= htmlspecialchars(addslashes($libro['nombre_libro'])) ?>', '../assets/img/<?= htmlspecialchars(addslashes($libro['imagen'])) ?>', '<?= htmlspecialchars(addslashes($libro['detalle'])) ?>')">
+                                        <i class="bx bx-show"></i>
+                                    </button>
+                                    <form method="GET" action="" class="d-inline">
                                         <input type="hidden" name="id_employee-delete"
                                             value="<?= $libro['id_libro'] ?>">
                                         <input type="hidden" name="ruta" value="libros_activos.php">
-                                        <button class="btn btn-danger btn-lg"
+                                        <button class="btn btn-danger mb-2"
                                             onclick="return confirm('¿Desea eliminar el registro?');" type="submit">
                                             <i class="bx bx-trash" title="Eliminar"></i>
                                         </button>
                                     </form>
-
-                                    <form method="GET" action="editar_libro.php">
+                                    <form method="GET" action="editar_libro.php" class="d-inline">
                                         <input type="hidden" name="id_employee-edit" value="<?= $libro['id_libro'] ?>">
                                         <input type="hidden" name="ruta" value="libros_activos.php">
-                                        <button class="btn btn-success btn-lg"
+                                        <button class="btn btn-success mb-2"
                                             onclick="return confirm('¿Desea actualizar el registro?');" type="submit">
                                             <i class="bx bx-refresh" title="Actualizar"></i>
                                         </button>
                                     </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
+                                </td>
+                                <td><?= htmlspecialchars($libro['nombre_libro']) ?></td>
+                                <td><?= htmlspecialchars($libro['detalle']) ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-    function verImagenLibro(imageUrl) {
-        Swal.fire({
-            title: 'Imagen del Libro',
-            imageUrl: imageUrl,
-            imageAlt: 'Imagen del Libro',
-            width: window.innerWidth < 768 ? '90%' : '350px',
-            imageWidth: '100%',
-            imageHeight: 'auto'
-        });
-    }
-    </script>
+<script>
+function verDetalleLibro(nombre, imagen, detalle) {
+    Swal.fire({
+        title: nombre,
+        html: `<img src="${imagen}" alt="Imagen del libro" class="img-fluid mb-3"/><p>${detalle}</p>`,
+        width: window.innerWidth < 768 ? '100%' : '350px',
+    });
+}
+</script>
 
-    <?php require_once("../components/footer.php") ?>
+<?php require_once("../components/footer.php"); ?>

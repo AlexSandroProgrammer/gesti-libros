@@ -28,7 +28,7 @@ $estudiantes = $listaEstudiantes->fetchAll(PDO::FETCH_ASSOC);
                 <div class="row">
                     <div class="col-lg-12 mt-5">
                         <div class="table-responsive w-100">
-                            <table id="example" class="table table-striped table-bordered top-table text-center"
+                            <table id="example" class="table  table-striped table-bordered top-table text-center"
                                 style="width: 100%;">
                                 <thead>
                                     <tr>
