@@ -110,6 +110,10 @@ $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
 
 
                                 <div class="row mt-3">
+                                    <div class="col-lg-12">
+                                        <h6 class="fw-bold"> <i class="bx bx-library"></i> DATOS DEL PRESTAMO DE LIBROS
+                                        </h6>
+                                    </div>
                                     <div class="col-lg-4 col-md-6">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#contenedorLibros">
@@ -125,7 +129,10 @@ $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
                                             <thead>
                                                 <tr>
                                                     <th>Nombre</th>
-                                                    <th>Descripción</th>
+                                                    <th>Und. En Stock</th>
+                                                    <th>Cantidad A Prestar</th>
+                                                    <th>Fecha Prestamo</th>
+                                                    <th>Fecha Entrega</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -239,6 +246,31 @@ function renderizarTablaLibros() {
         <tr>
         <td>${libro.nombre_libro}</td>
         <td>${libro.detalle}</td>
+
+        <td>
+            <div class="input-group input-group-merge">
+                <span id="cantidad_prestamo_span" class="input-group-text"><i class="bx bx-library "></i></span>
+                <input type="text" class="form-control" name="cantidad_prestamo" id="cantidad_prestamo" />
+            </div>
+        </td>
+
+        <td>
+            <div class="input-group input-group-merge">
+                <span id="fecha_prestamo_span" class="input-group-text"><i class="bx bx-time "></i></span>
+                <input type="datetime-local" class="form-control" name="fecha_prestamo" id="fecha_prestamo" />
+            </div>
+        </td>
+
+        <td>
+            <div class="input-group input-group-merge">
+                <span id="fecha_entrega_span" class="input-group-text"><i class="bx bx-time "></i></span>
+                <input type="datetime-local" class="form-control" name="fecha_entrega" id="fecha_entrega" />
+            </div>
+        </td>
+
+
+
+
         <td>
         <button class="btn btn-danger btn-sm" onclick="eliminarLibro(${libro.id_libro})">
         <i class="bx bx-trash"></i> Quitar
@@ -260,6 +292,9 @@ function renderizarTablaLibros() {
 
     contenedorLibrosSeleccionados.style.display = 'block';
 }
+
+
+
 
 function eliminarLibro(id_libro) {
     librosSeleccionados = librosSeleccionados.filter(libro => libro.id_libro !== id_libro);
