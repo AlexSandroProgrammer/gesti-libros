@@ -12,8 +12,8 @@
                         <script>
                         document.write(new Date().getFullYear());
                         </script>
-                        , Todos los derechos reservados, diseñado y desarrollado por
-                        <a href="#" target="_blank" class="footer-link fw-bolder">URBES</a>
+                        , Diseñado y Desarrollado por
+                        <a href="#" target="_blank" class="footer-link fw-bolder">Alejandro Muñoz y Juan Lopez</a>
                     </div>
                     <div>
                         <a href="index.php?logout" class="btn btn-sm btn-outline-danger"><i

@@ -2,7 +2,7 @@
 -- Host:                         127.0.0.1
 -- Versión del servidor:         10.4.32-MariaDB - mariadb.org binary distribution
 -- SO del servidor:              Win64
--- HeidiSQL Versión:             12.10.0.7000
+-- HeidiSQL Versión:             12.11.0.7065
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -19,15 +19,16 @@
 CREATE DATABASE IF NOT EXISTS `gesti_libros_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `gesti_libros_db`;
 
--- Volcando estructura para tabla gesti_libros_db.detallep
-CREATE TABLE IF NOT EXISTS `detallep` (
+-- Volcando estructura para tabla gesti_libros_db.d_general_prestamo
+CREATE TABLE IF NOT EXISTS `d_general_prestamo` (
   `id_detalle` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_usuario` bigint(20) NOT NULL,
-  `id_prestamo` bigint(20) NOT NULL,
+  `id_general` int(11) DEFAULT NULL,
+  `id_libro` int(11) DEFAULT NULL,
+  `cantidad` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_detalle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla gesti_libros_db.detallep: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla gesti_libros_db.d_general_prestamo: ~0 rows (aproximadamente)
 
 -- Volcando estructura para tabla gesti_libros_db.estado
 CREATE TABLE IF NOT EXISTS `estado` (
@@ -38,6 +39,21 @@ CREATE TABLE IF NOT EXISTS `estado` (
 
 -- Volcando datos para la tabla gesti_libros_db.estado: ~0 rows (aproximadamente)
 
+-- Volcando estructura para tabla gesti_libros_db.general_prestamos
+CREATE TABLE IF NOT EXISTS `general_prestamos` (
+  `id_prestamo` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL DEFAULT 0,
+  `fecha_prestamo` date NOT NULL,
+  `hora_prestamo` time NOT NULL,
+  `fecha_entrega` date DEFAULT NULL,
+  `hora_entrega` time DEFAULT NULL,
+  `fecha_registro` date DEFAULT NULL,
+  `id_estado` int(11) NOT NULL,
+  PRIMARY KEY (`id_prestamo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Volcando datos para la tabla gesti_libros_db.general_prestamos: ~0 rows (aproximadamente)
+
 -- Volcando estructura para tabla gesti_libros_db.grados
 CREATE TABLE IF NOT EXISTS `grados` (
   `id_grado` smallint(6) NOT NULL AUTO_INCREMENT,
@@ -45,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `grados` (
   PRIMARY KEY (`id_grado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla gesti_libros_db.grados: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla gesti_libros_db.grados: ~2 rows (aproximadamente)
 INSERT INTO `grados` (`id_grado`, `grado`) VALUES
 	(1, '11-A'),
 	(2, '10-B');
@@ -56,25 +72,14 @@ CREATE TABLE IF NOT EXISTS `libros` (
   `nombre_libro` tinytext NOT NULL,
   `imagen` longtext DEFAULT NULL,
   `detalle` mediumtext DEFAULT NULL,
+  `cantidad_total` int(11) DEFAULT NULL,
+  `cantidad_disponible` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_libro`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla gesti_libros_db.libros: ~2 rows (aproximadamente)
-INSERT INTO `libros` (`id_libro`, `nombre_libro`, `imagen`, `detalle`) VALUES
-	(2, 'Harry Potter', 'libro_harry_potter.jpg', 'Prueba del servidor');
-
--- Volcando estructura para tabla gesti_libros_db.prestamo
-CREATE TABLE IF NOT EXISTS `prestamo` (
-  `id_prestamo` bigint(20) NOT NULL AUTO_INCREMENT,
-  `fecha` date NOT NULL,
-  `hora_prestamo` time NOT NULL,
-  `fecha_entrega` date DEFAULT NULL,
-  `hora_entrega` time DEFAULT NULL,
-  `id_estado` int(11) NOT NULL,
-  PRIMARY KEY (`id_prestamo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Volcando datos para la tabla gesti_libros_db.prestamo: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla gesti_libros_db.libros: ~1 rows (aproximadamente)
+INSERT INTO `libros` (`id_libro`, `nombre_libro`, `imagen`, `detalle`, `cantidad_total`, `cantidad_disponible`) VALUES
+	(2, 'Harry Potter', 'libro_harry_potter.jpg', 'Prueba del servidor', NULL, NULL);
 
 -- Volcando estructura para tabla gesti_libros_db.tipo_usuario
 CREATE TABLE IF NOT EXISTS `tipo_usuario` (
