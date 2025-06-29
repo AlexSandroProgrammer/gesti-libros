@@ -1,5 +1,5 @@
 {
-  "name": "www/urbes",
+  "name": "www/gesti_libros",
   "autoload": {
     "psr-4": {
       "www\\Urbes\\": "src/"
