@@ -1,5 +1,5 @@
 <?php
-$titlePage = "Registro de Grado";
+$titlePage = "Registro de Prestamo";
 require_once("../components/sidebar.php");
 ?>
 <!-- Content wrapper -->
@@ -11,70 +11,101 @@ require_once("../components/sidebar.php");
             <div class="col-xl">
                 <div class="card mb-4">
                     <div class="card-header justify-content-between align-items-center text-center">
-                        <h3 class="fw-bold pb-1">Registro de Libro</h3>
-                        <h6 class="mb-0">Ingresa por favor los siguientes datos.</h6>
+                        <h3 class="fw-bold pb-1">Registro Prestamo de Libros</h3>
                     </div>
                     <div class="card-body">
                         <form action="" method="POST" enctype="multipart/form-data" autocomplete="off"
                             name="formRegisterLibrary">
-                            <div class="row">
-                                <h6 class=" fw-bold"> <i class="bx bx-library"></i> DATOS DEL LIBRO</h6>
-
-                                <!-- nombre del libro -->
-                                <div class="mb-3 col-12 col-lg-6">
-                                    <label class="form-label" for="nombre_libro">Nombre del Libro</label>
+                            <div class="row" id="buscarDocumento">
+                                <!-- <h6 class=" fw-bold"> <i class="bx bx-library"></i> DATOS DEL LIBRO</h6> -->
+                                <div class="col-lg-12">
+                                    <h6>Ingresa por favor el documento del estudiante para habilitar el prestamo de los
+                                        libros.</h6>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label class="form-label" for="buscar_documento">Documento</label>
                                     <div class="input-group input-group-merge">
-                                        <span id="nombre_libro_span" class="input-group-text"><i
-                                                class="fas fa-book"></i></span>
+                                        <span class="input-group-text"><i class="bx bx-id-card"></i></span>
                                         <input type="text" required minlength="5" maxlength="100" class="form-control"
-                                            name="nombre_libro" id="nombre_libro"
-                                            placeholder="Ingresar nombre del libro" autofocus />
+                                            name="buscar_documento" id="buscar_documento"
+                                            placeholder="Ingresar documento" autofocus />
                                     </div>
                                 </div>
-
-                                <!-- adjuntar la imagen del libro -->
-                                <div class="mb-3 col-12 col-lg-6">
-                                    <label class="form-label" for="imagen">Adjuntar Imagen del libro</label>
-                                    <div class="input-group input-group-merge">
-                                        <span id="imagen_span" class="input-group-text"><i
-                                                class="fas fa-image"></i></span>
-                                        <input type="file" required class="form-control" name="imagen" id="imagen"
-                                            accept="image/*" onchange="previewImage(event)" />
+                                <div class="col-lg-4" style="margin-top: 30px;">
+                                    <div class="input-group">
+                                        <button type="button" id="boton_buscar_docu" class="btn btn-primary"><i
+                                                class="bx bx-search"></i>
+                                            Buscar</button>
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- container para vista previa de la imagen -->
-                                <div class="col-md-12 d-flex justify-content-center">
-                                    <div class="col-md-6 col-lg-4" id="containerPreview" style="display: none;">
-                                        <div class="card h-100">
-                                            <div class="card-body text-center">
-                                                <h5 class="card-title">Imagen del libro</h5>
-                                                <h6 class="card-subtitle mb-3">Imagen del libro seleccionada</h6>
-                                                <img class="img-fluid rounded" id="preview" src="#"
-                                                    alt="Imagen seleccionada">
-                                            </div>
+                            <div id="contenedoresCondicionales" style="display:none;">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h6 class=" fw-bold"> <i class="bx bx-library"></i> DATOS DEL ESTUDIANTE</h6>
+                                    </div>
+                                    <!-- tipo de documento -->
+                                    <div class="mb-3 col-12 col-lg-6">
+                                        <label class="form-label" for="documento_encontrado">Tipo de
+                                            Documento</label>
+                                        <div class="input-group input-group-merge">
+                                            <span id="tipo_docu_encontrado-icon" class="input-group-text"><i
+                                                    class="fas fa-address-card"></i></span>
+                                            <input type="text" class="form-control" id="tipo_docu_encontrado"
+                                                name="tipo_docu_encontrado" readonly />
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- descripcion del libro -->
-                                <div class="mb-3 col-md-12">
-                                    <label class="form-label" for="descripcion_libro">Descripcion del libro</label>
-                                    <div class="input-group input-group-merge">
-                                        <span id="descripcion_libro_span" class="input-group-text"><i
-                                                class="fas fa-info-circle"></i></span>
-                                        <textarea cols="30" rows="5" class="form-control" name="descripcion_libro"
-                                            id="descripcion_libro" required></textarea>
+
+                                    <!-- numero de documento -->
+                                    <div class="mb-3 col-12 col-lg-6">
+                                        <label class="form-label" for="documento_encontrado">Numero de
+                                            Documento</label>
+                                        <div class="input-group input-group-merge">
+                                            <span id="documento_encontrado-icon" class="input-group-text"><i
+                                                    class="fas fa-address-card"></i></span>
+
+                                            <input type="text" class="form-control documento_encontrado"
+                                                id="documento_encontrado" name="documento_encontrado" readonly />
+
+                                            <input type="hidden" class="form-control documento_encontrado"
+                                                id="documento_oculto" name="documento_oculto" />
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="mt-4">
-                                    <a href="listar_libros.php" class="btn btn-danger">
-                                        Cancelar
-                                    </a>
-                                    <input type="submit" class="btn btn-primary" value="Registrar"></input>
-                                    <input type="hidden" class="btn btn-info" value="formRegisterLibrary"
-                                        name="MM_formRegisterLibrary"></input>
+                                    <!-- nombres -->
+                                    <div class="mb-3 col-12 col-lg-6">
+                                        <label class="form-label" for="nombres">Nombre Completo</label>
+                                        <div class="input-group input-group-merge">
+                                            <span id="nombres_span" class="input-group-text"><i
+                                                    class="fas fa-user"></i></span>
+                                            <input type="text" class="form-control" name="nombre_encontrado"
+                                                id="nombre_encontrado" readonly />
+                                        </div>
+                                    </div>
+
+                                    <!-- numero de celular -->
+                                    <div class="mb-3 col-12 col-lg-6">
+                                        <label class="form-label" for="celular_encontrado">Numero de Celular</label>
+                                        <div class="input-group input-group-merge">
+                                            <span id="celular_encontrado_span" class="input-group-text"><i
+                                                    class="fas fa-mobile-alt "></i></span>
+                                            <input type="text" class="form-control" name="celular_encontrado"
+                                                id="celular_encontrado" readonly />
+                                        </div>
+                                    </div>
+
+                                    <!-- numero de celular -->
+                                    <div class="mb-3 col-12 col-lg-6">
+                                        <label class="form-label" for="grado_encontrado">Grado Asignado</label>
+                                        <div class="input-group input-group-merge">
+                                            <span id="grado_encontrado_span" class="input-group-text"><i
+                                                    class="fas fa-mobile-alt "></i></span>
+                                            <input type="text" class="form-control" name="grado_encontrado"
+                                                id="grado_encontrado" readonly />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -86,30 +117,3 @@ require_once("../components/sidebar.php");
     <?php
     require_once("../components/footer.php")
     ?>
-
-    <script>
-    function previewImage(event) {
-        const file = event.target.files[0];
-        const container = document.getElementById('containerPreview');
-
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const preview = document.getElementById('preview');
-                preview.src = e.target.result;
-                container.style.display = 'block';
-            }
-            reader.readAsDataURL(file);
-        } else {
-            Swal.fire({
-                icon: 'info',
-                title: 'Error tipo de archivo',
-                text: 'Por favor, selecciona un archivo de imagen válido.',
-                confirmButtonText: 'Aceptar'
-            }).then(() => {
-                event.target.value = '';
-                container.style.display = 'none';
-            });
-        }
-    }
-    </script>
