@@ -48,7 +48,7 @@ if ((isset($_POST["MM_formRegisterLibrary"])) && ($_POST["MM_formRegisterLibrary
                         $registerLibrary->bindParam(':nombre_libro', $nombre_libro);
                         $registerLibrary->bindParam(':codigo_libro', $codigo_libro);
                         $registerLibrary->bindParam(':cantidad_total', $cantidad_total);
-                        $registerLibrary->bindParam(':cantidad_disponible', $cantidad_disponible);
+                        $registerLibrary->bindParam(':cantidad_disponible', $cantidad_total);
                         $registerLibrary->bindParam(':descripcion_libro', $descripcion_libro);
                         $registerLibrary->bindParam(':imagen', $nombreImagen);
                         $registerLibrary->execute();
