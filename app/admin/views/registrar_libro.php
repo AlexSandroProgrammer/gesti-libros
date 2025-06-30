@@ -28,7 +28,34 @@ require_once("../components/sidebar.php");
                                                 class="fas fa-book"></i></span>
                                         <input type="text" required minlength="5" maxlength="100" class="form-control"
                                             name="nombre_libro" id="nombre_libro"
-                                            placeholder="Ingresar nombre del libro" autofocus />
+                                            placeholder="Ingresar nombre del libro"
+                                            oninput="this.value = this.value.toUpperCase();" autofocus />
+                                    </div>
+                                </div>
+
+                                <!-- codigo del libro -->
+                                <div class="mb-3 col-12 col-lg-6">
+                                    <label class="form-label" for="codigo_libro">Codigo del Libro</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="codigo_libro_span" class="input-group-text"><i
+                                                class="fas fa-barcode"></i>
+                                        </span>
+                                        <input type="text" required minlength="5" maxlength="100" class="form-control"
+                                            name="codigo_libro" id="codigo_libro"
+                                            placeholder="Ingresar codigo del libro"
+                                            oninput="this.value = this.value.toUpperCase();" autofocus />
+                                    </div>
+                                </div>
+
+                                <!-- cantidad del libro -->
+                                <div class="mb-3 col-12 col-lg-6">
+                                    <label class="form-label" for="cantidad_inicial">Cantidad Inicial</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="cantidad_inicial_span" class="input-group-text"><i
+                                                class="fas fa-sort-numeric-up"></i></span>
+                                        <input type="number" required minlength="5" maxlength="100" class="form-control"
+                                            name="cantidad_total" id="cantidad_total"
+                                            placeholder="Ingresar cantidad de libros" autofocus />
                                     </div>
                                 </div>
 
@@ -42,6 +69,7 @@ require_once("../components/sidebar.php");
                                             accept="image/*" onchange="previewImage(event)" />
                                     </div>
                                 </div>
+
 
                                 <!-- container para vista previa de la imagen -->
                                 <div class="col-md-12 d-flex justify-content-center">

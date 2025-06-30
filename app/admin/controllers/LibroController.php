@@ -4,9 +4,11 @@ if ((isset($_POST["MM_formRegisterLibrary"])) && ($_POST["MM_formRegisterLibrary
     // VARIABLES DE ASIGNACION DE VALORES QUE SE ENVIA DEL FORMULARIO REGISTRO DE GRADO
     $nombre_libro = $_POST['nombre_libro'];
     $descripcion_libro = $_POST['descripcion_libro'];
+    $codigo_libro = $_POST['codigo_libro'];
+    $cantidad_total = $_POST['cantidad_total'];
 
     // validamos que no hayamos recibido ningun dato vacio
-    if (isEmpty([$nombre_libro, $descripcion_libro])) {
+    if (isEmpty([$nombre_libro, $descripcion_libro, $codigo_libro, $cantidad_total])) {
         showErrorFieldsEmpty("registrar_libro.php");
         exit();
     }
@@ -42,8 +44,11 @@ if ((isset($_POST["MM_formRegisterLibrary"])) && ($_POST["MM_formRegisterLibrary
                         exit();
                     } else {
                         // Inserta los datos en la base de datos
-                        $registerLibrary = $connection->prepare("INSERT INTO libros(nombre_libro, detalle, imagen) VALUES(:nombre_libro, :descripcion_libro, :imagen)");
+                        $registerLibrary = $connection->prepare("INSERT INTO libros(nombre_libro, codigo_libro, cantidad_total, cantidad_disponible, detalle, imagen) VALUES(:nombre_libro, :codigo_libro, :cantidad_total, :cantidad_disponible,  :descripcion_libro, :imagen)");
                         $registerLibrary->bindParam(':nombre_libro', $nombre_libro);
+                        $registerLibrary->bindParam(':codigo_libro', $codigo_libro);
+                        $registerLibrary->bindParam(':cantidad_total', $cantidad_total);
+                        $registerLibrary->bindParam(':cantidad_disponible', $cantidad_total);
                         $registerLibrary->bindParam(':descripcion_libro', $descripcion_libro);
                         $registerLibrary->bindParam(':imagen', $nombreImagen);
                         $registerLibrary->execute();

@@ -58,7 +58,7 @@ $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
                                     </form>
                                 </td>
                                 <td><?= htmlspecialchars($libro['nombre_libro']) ?></td>
-                                <td><?= htmlspecialchars($libro['detalle']) ?></td>
+                                <td style="width: 450px;"><?= htmlspecialchars($libro['detalle']) ?></td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
