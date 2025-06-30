@@ -31,6 +31,7 @@ require_once("../components/sidebar.php");
                                             <option value="">Seleccionar tipo de documento...</option>
                                             <option value="C.C.">C.C.</option>
                                             <option value="C.E.">C.E.</option>
+                                            <option value="C.E.">T.I.</option>
                                         </select>
                                     </div>
                                 </div>
@@ -86,7 +87,7 @@ require_once("../components/sidebar.php");
 
                                 <!-- grado del estudiante -->
                                 <div class="mb-3 col-12 col-lg-6">
-                                    <label for="estado" class="form-label">Grado Asignado</label>
+                                    <label for="grado" class="form-label">Grado Asignado</label>
                                     <div class="input-group input-group-merge">
                                         <span id="estado-2" class="input-group-text"><i
                                                 class="fas fa-user-shield"></i></span>
@@ -104,6 +105,33 @@ require_once("../components/sidebar.php");
                                                 // Iterar sobre los grados
                                                 foreach ($grados as $grado) {
                                                     echo "<option value='{$grado['id_grado']}'>{$grado['grado']}</option>";
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- estado del estudiante -->
+                                <div class="mb-3 col-12 col-lg-6">
+                                    <label for="estado" class="form-label">Estado Estudiante</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="estado-2" class="input-group-text"><i
+                                                class="fas fa-user-shield"></i></span>
+                                        <select class="form-select" name="estado" required>
+                                            <option value="">Seleccionar Estado...</option>
+                                            <?php
+                                            // CONSUMO DE DATOS DE LOS PROCESOS
+                                            $tipo_estado = $connection->prepare("SELECT * FROM estado AS e");
+                                            $tipo_estado->execute();
+                                            $estados = $tipo_estado->fetchAll(PDO::FETCH_ASSOC);
+                                            // Verificar si no hay datos
+                                            if (empty($estados)) {
+                                                echo "<option value=''>No hay datos...</option>";
+                                            } else {
+                                                // Iterar sobre los grados
+                                                foreach ($estados as $e) {
+                                                    echo "<option value='{$e['id_estado']}'>{$e['estado']}</option>";
                                                 }
                                             }
                                             ?>

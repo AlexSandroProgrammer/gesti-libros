@@ -13,6 +13,7 @@ if ((isset($_POST["MM_formRegisterStudent"])) && ($_POST["MM_formRegisterStudent
     $apellidos = $_POST['apellidos'];
     $celular = $_POST['celular'];
     $grado_asignado = $_POST['grado_asignado'];
+    $estado = $_POST['estado'];
 
 
     // Validamos que no se haya recibido ningún dato vacío
@@ -23,6 +24,7 @@ if ((isset($_POST["MM_formRegisterStudent"])) && ($_POST["MM_formRegisterStudent
         $apellidos,
         $celular,
         $grado_asignado,
+        $estado
     ])) {
         showErrorFieldsEmpty("registrar_estudiante.php");
         exit();
@@ -51,7 +53,7 @@ if ((isset($_POST["MM_formRegisterStudent"])) && ($_POST["MM_formRegisterStudent
     } else {
         try {
             // Insertamos los datos en la base de datos, incluyendo todos los campos requeridos
-            $registerStudent = $connection->prepare("INSERT INTO usuarios(documento, tipo_documento, nombres, apellidos, celular, fecha_registro, id_grado) VALUES(:documento, :tipo_documento, :nombres, :apellidos, :celular, :fecha_registro, :id_grado)");
+            $registerStudent = $connection->prepare("INSERT INTO usuarios(documento, tipo_documento, nombres, apellidos, celular, fecha_registro, id_grado, id_estado) VALUES(:documento, :tipo_documento, :nombres, :apellidos, :celular, :fecha_registro, :id_grado, :id_estado)");
             $registerStudent->bindParam(':documento', $documento);
             $registerStudent->bindParam(':tipo_documento', $tipo_documento);
             $registerStudent->bindParam(':nombres', $nombres);
@@ -59,6 +61,7 @@ if ((isset($_POST["MM_formRegisterStudent"])) && ($_POST["MM_formRegisterStudent
             $registerStudent->bindParam(':celular', $celular);
             $registerStudent->bindParam(':fecha_registro', $fecha_registro);
             $registerStudent->bindParam(':id_grado', $grado_asignado);
+            $registerStudent->bindParam(':id_estado', $estado);
             $registerStudent->execute();
             // Verificamos si la inserción fue exitosa
             if ($registerStudent) {

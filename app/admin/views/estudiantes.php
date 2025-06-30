@@ -4,7 +4,7 @@ require_once("../components/sidebar.php");
 
 //*  CONSULTA PARA CONSUMIR LOS DATOS DEL GRADO
 
-$listaEstudiantes = $connection->prepare("SELECT * FROM usuarios AS u INNER JOIN grados AS g ON u.id_grado = g.id_grado");
+$listaEstudiantes = $connection->prepare("SELECT * FROM usuarios AS u INNER JOIN grados AS g ON u.id_grado = g.id_grado  INNER JOIN estado AS e ON u.id_estado = e.id_estado");
 $listaEstudiantes->execute();
 $estudiantes = $listaEstudiantes->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -38,6 +38,7 @@ $estudiantes = $listaEstudiantes->fetchAll(PDO::FETCH_ASSOC);
                                         <th>Grado</th>
                                         <th>Nombre Completo</th>
                                         <th>Celular</th>
+                                        <th>Estado</th>
                                         <th>Fecha de Registro</th>
                                     </tr>
                                 </thead>
@@ -48,7 +49,7 @@ $estudiantes = $listaEstudiantes->fetchAll(PDO::FETCH_ASSOC);
                                     <tr>
                                         <td>
                                             <form method="GET" action="">
-                                                <input type="hidden" name="id_employee-delete"
+                                                <input type="hidden" name="id_student-delete"
                                                     value="<?= $estudiante['documento'] ?>">
                                                 <input type="hidden" name="ruta" value="estudiantes_activos.php">
                                                 <button class="btn btn-danger mt-2"
@@ -58,7 +59,7 @@ $estudiantes = $listaEstudiantes->fetchAll(PDO::FETCH_ASSOC);
                                                 </button>
                                             </form>
                                             <form method="GET" class="mt-2" action="editar_estudiante.php">
-                                                <input type="hidden" name="id_employee-edit"
+                                                <input type="hidden" name="id_student-edit"
                                                     value="<?= $estudiante['documento'] ?>">
                                                 <input type="hidden" name="ruta" value="estudiantes_activos.php">
                                                 <button class="btn btn-success"
@@ -73,6 +74,7 @@ $estudiantes = $listaEstudiantes->fetchAll(PDO::FETCH_ASSOC);
                                         <td><?= $estudiante['grado'] ?></td>
                                         <td><?= $estudiante['nombres'] ?> <?= $estudiante['apellidos'] ?></td>
                                         <td><?= $estudiante['celular'] ?></td>
+                                        <td><?= $estudiante['estado'] ?></td>
                                         <td><?= (new DateTime($estudiante['fecha_registro']))->format('d/m/Y H:i:s') ?>
                                         </td>
                                     </tr>
