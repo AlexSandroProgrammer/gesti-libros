@@ -28,7 +28,7 @@ if (isNotEmpty([$_GET['id_student-edit'], $_GET['ruta']])) {
                     </div>
                     <div class="card-body">
                         <form action="" method="POST" enctype="multipart/form-data" autocomplete="off"
-                            name="formUpdateEmployee">
+                            name="formUpdateStudent">
                             <div class="row">
                                 <input type="hidden" name="ruta" value="<?php echo $ruta ?>">
                                 <h6 class="mb-3 fw-bold"> <i class="bx bx-user"></i> DATOS PERSONALES</h6>
@@ -159,8 +159,8 @@ if (isNotEmpty([$_GET['id_student-edit'], $_GET['ruta']])) {
                                         Cancelar
                                     </a>
                                     <input type="submit" class="btn btn-primary" value="Actualizar"></input>
-                                    <input type="hidden" class="btn btn-info" value="formUpdateEmployee"
-                                        name="MM_formUpdateEmployee"></input>
+                                    <input type="hidden" class="btn btn-info" value="formUpdateStudent"
+                                        name="MM_formUpdateStudent"></input>
                                 </div>
                             </div>
                         </form>
@@ -172,9 +172,9 @@ if (isNotEmpty([$_GET['id_student-edit'], $_GET['ruta']])) {
     <?php
         require_once("../components/footer.php");
     } else {
-        showErrorOrSuccessAndRedirect("error", "Error de ruta", "Los datos del empleado no fueron encontrados", "empleados_activos.php");
+        showErrorOrSuccessAndRedirect("error", "Error de ruta", "Los datos del estudiante no fueron encontrados", "estudiantes.php");
     }
 } else {
-    showErrorOrSuccessAndRedirect("error", "Error de ruta", "Los datos del empleado no fueron encontrados", "empleados_activos.php");
+    showErrorOrSuccessAndRedirect("error", "Error de ruta", "Los datos del empleado no fueron encontrados", "estudiantes.php");
 }
     ?>

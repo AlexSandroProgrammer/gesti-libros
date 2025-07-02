@@ -51,7 +51,7 @@ $estudiantes = $listaEstudiantes->fetchAll(PDO::FETCH_ASSOC);
                                             <form method="GET" action="">
                                                 <input type="hidden" name="id_student-delete"
                                                     value="<?= $estudiante['documento'] ?>">
-                                                <input type="hidden" name="ruta" value="estudiantes_activos.php">
+                                                <input type="hidden" name="ruta" value="estudiantes.php">
                                                 <button class="btn btn-danger mt-2"
                                                     onclick="return confirm('¿Desea eliminar el registro?');"
                                                     type="submit">
@@ -61,7 +61,7 @@ $estudiantes = $listaEstudiantes->fetchAll(PDO::FETCH_ASSOC);
                                             <form method="GET" class="mt-2" action="editar_estudiante.php">
                                                 <input type="hidden" name="id_student-edit"
                                                     value="<?= $estudiante['documento'] ?>">
-                                                <input type="hidden" name="ruta" value="estudiantes_activos.php">
+                                                <input type="hidden" name="ruta" value="estudiantes.php">
                                                 <button class="btn btn-success"
                                                     onclick="return confirm('¿Desea actualizar el registro?');"
                                                     type="submit">
