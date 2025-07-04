@@ -124,21 +124,37 @@ $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
 
                                 <!-- Tabla de libros seleccionados -->
                                 <div class="row mt-3" id="contenedorLibrosSeleccionados" style="display: none;">
-                                    <div class="col-12">
-                                        <table class="table table-bordered text-center">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nombre</th>
-                                                    <th>Und. En Stock</th>
-                                                    <th>Cantidad A Prestar</th>
-                                                    <th>Fecha Prestamo</th>
-                                                    <th>Fecha Entrega</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="librosSeleccionados">
-                                            </tbody>
-                                        </table>
+                                    <div class="col-lg-12">
+                                        <h6 class="fw-bold"> <i class="bx bx-library"></i> LIBROS SELECCIONADOS PARA
+                                            PRESTAR
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nombre</th>
+                                                        <th>Und. En Stock</th>
+                                                        <th>Cantidad A Prestar</th>
+                                                        <th>Fecha Prestamo</th>
+                                                        <th>Fecha Entrega</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="librosSeleccionados">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3" id="botonGuardarPrestamo">
+                                    <div class="col-lg-12">
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-primary">
+                                                <i class="bx bx-save"></i> Guardar Prestamo
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -163,8 +179,10 @@ $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
                             <thead>
                                 <tr>
                                     <th>Acciones</th>
+                                    <th>Codigo del Libro</th>
                                     <th>Nombre del Libro</th>
-                                    <th>Descripcion</th>
+                                    <th>Cantidad Total</th>
+                                    <th>Cantidad Disponible</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -177,14 +195,17 @@ $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
                                         </button>
                                         <button class="btn btn-success mb-2" onclick="agregarLibro({
                                             id_libro: <?php echo $libro['id_libro']; ?>,
+                                            cantidad_disponible: <?php echo $libro['cantidad_disponible']; ?>,
                                             nombre_libro: '<?php echo htmlspecialchars(addslashes($libro['nombre_libro'])) ?>',
                                             detalle: '<?php echo htmlspecialchars(addslashes($libro['detalle'])) ?>'
                                         })">
                                             <i class="bx bx-check-circle" title="Agregar este libro"></i> Agregar
                                         </button>
                                     </td>
+                                    <td><?php echo htmlspecialchars($libro['codigo_libro']) ?></td>
                                     <td><?php echo htmlspecialchars($libro['nombre_libro']) ?></td>
-                                    <td><?php echo htmlspecialchars($libro['detalle']) ?></td>
+                                    <td><?php echo htmlspecialchars($libro['cantidad_total']) ?></td>
+                                    <td><?php echo htmlspecialchars($libro['cantidad_disponible']) ?></td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -214,16 +235,175 @@ $libros = $listaLibros->fetchAll(PDO::FETCH_ASSOC);
 
 <script>
 let librosSeleccionados = [];
+const contenedorTabla = document.getElementById('librosSeleccionados');
+const contenedorLibrosSeleccionados = document.getElementById('contenedorLibrosSeleccionados');
+const modalElement = document.getElementById('contenedorLibros');
+let modalInstance = null;
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const modalElement = document.getElementById('contenedorLibros');
+    const btnGuardar = document.querySelector('#botonGuardarPrestamo button');
+
+
+    if (modalElement) {
+        modalInstance = new bootstrap.Modal(modalElement);
+    }
+
+    btnGuardar.addEventListener('click', function() {
+        // Obtener el documento del estudiante
+        const documento = document.getElementById('documento_encontrado').value;
+        // Obtener los libros seleccionados
+        const libros = [];
+        // llamamos los libros
+        const filas = document.querySelectorAll('#librosSeleccionados tr');
+
+
+        filas.forEach((fila, idx) => {
+
+            const id_libro_prestamo = fila.querySelector('input[name="id_libro_prestamo"]')
+                ?.value || '';
+
+            const cantidad_disponible = fila.children[1]?.textContent || '';
+
+            const cantidad_prestamo = fila.querySelector('input[name="cantidad_prestamo"]')
+                ?.value || '';
+
+            const fecha_prestamo_raw = fila.querySelector('input[name="fecha_prestamo"]')
+                ?.value || '';
+            const fecha_entrega_raw = fila.querySelector('input[name="fecha_entrega"]')
+                ?.value || '';
+
+            // Validar campos vacíos
+            if (
+                id_libro_prestamo.trim() === '' ||
+                isNaN(cantidad_disponible) ||
+                isNaN(cantidad_prestamo) ||
+                fecha_prestamo_raw.trim() === '' ||
+                fecha_entrega_raw.trim() === ''
+            ) {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Datos Vacíos!',
+                    text: 'Por favor ingresa todos los datos.',
+                    confirmButtonText: 'Aceptar'
+                });
+                error = true;
+                return false;
+            }
+
+
+            // Separar fecha y hora si el campo no está vacío
+            let fecha_prestamo = '',
+                hora_prestamo = '',
+                fecha_entrega = '',
+                hora_entrega = '';
+
+            if (fecha_prestamo_raw) {
+                [fecha_prestamo, hora_prestamo] = fecha_prestamo_raw.split('T');
+            }
+            if (fecha_entrega_raw) {
+                [fecha_entrega, hora_entrega] = fecha_entrega_raw.split('T');
+            }
+
+            // Validar cantidad prestada no mayor que disponible
+            if (cantidad_prestamo > cantidad_disponible) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Cantidad inválida',
+                    text: 'La cantidad a prestar no puede ser mayor que la cantidad disponible.',
+                    confirmButtonText: 'Aceptar'
+                });
+                error = true;
+                return false;
+            }
+
+            // Validar fecha de préstamo no mayor a fecha de entrega
+            if (fecha_prestamo > fecha_entrega) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Fechas inválidas',
+                    text: 'La fecha de préstamo no puede ser mayor que la fecha de entrega.',
+                    confirmButtonText: 'Aceptar'
+                });
+                error = true;
+                return false;
+            }
+
+            error = false;
+
+            libros.push({
+                id_libro_prestamo,
+                cantidad_disponible,
+                cantidad_prestamo,
+                fecha_prestamo,
+                hora_prestamo,
+                fecha_entrega,
+                hora_entrega
+            });
+        });
+
+        if (error) return;
+
+        // realizamos envio de los datos y del estudiante realizando la solicitud AJAX
+        const librosArray = JSON.stringify(libros);
+        const librosParam = encodeURIComponent(librosArray);
+        const url =
+            `registrar_prestamo_fact.php?libros=${librosParam}&documento=${documento}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+
+                if (data.status === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Perfecto!',
+                        text: 'Se ha registrado correctamente el prestamo de libros del estudiante.',
+                        confirmButtonText: 'Aceptar'
+                    }).then(() => {
+                        location.href = "prestamos_pendientes.php";
+                    });
+
+                    return true;
+                }
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error de registro!',
+                    text: 'Error al momento de registrar los datos, por favor comunicate con tu administrador TI.',
+                    confirmButtonText: 'Aceptar'
+                });
+                return false;
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error de registro!',
+                    text: 'Error al momento de registrar los datos, por favor comunicate con tu administrador TI.',
+                    confirmButtonText: 'Aceptar'
+                });
+                return false;
+            });
+    });
+});
+
 
 function agregarLibro(libro) {
     if (!librosSeleccionados.some(l => l.id_libro === libro.id_libro)) {
+
         librosSeleccionados.push(libro);
-        console.log(librosSeleccionados);
         renderizarTablaLibros();
     } else {
+
+        if (modalInstance) {
+            modalInstance.hide();
+        }
+
         Swal.fire({
             icon: 'info',
-            title: 'Libro ya Agregado!',
+            title: 'Libro ya agregado!',
             text: 'El libro seleccionado ya fue agregado, por favor seleccione otro libro.',
             confirmButtonText: 'Aceptar'
         });
@@ -232,8 +412,6 @@ function agregarLibro(libro) {
 }
 
 function renderizarTablaLibros() {
-    const contenedorTabla = document.getElementById('librosSeleccionados');
-    const contenedorLibrosSeleccionados = document.getElementById('contenedorLibrosSeleccionados');
 
     if (!contenedorTabla) return;
 
@@ -245,12 +423,11 @@ function renderizarTablaLibros() {
         tabla += `
         <tr>
         <td>${libro.nombre_libro}</td>
-        <td>${libro.detalle}</td>
-
+        <td>${libro.cantidad_disponible}<input type="hidden" class="form-control" name="id_libro_prestamo" id="id_libro_prestamo" value="${libro.id_libro}" /></td>
         <td>
             <div class="input-group input-group-merge">
-                <span id="cantidad_prestamo_span" class="input-group-text"><i class="bx bx-library "></i></span>
-                <input type="text" class="form-control" name="cantidad_prestamo" id="cantidad_prestamo" />
+                <span id="cantidad_prestamo_span" class="input-group-text"><i class="bx bx-library"></i></span>
+                <input type="number" class="form-control" name="cantidad_prestamo" id="cantidad_prestamo" />
             </div>
         </td>
 
@@ -268,12 +445,9 @@ function renderizarTablaLibros() {
             </div>
         </td>
 
-
-
-
         <td>
         <button class="btn btn-danger btn-sm" onclick="eliminarLibro(${libro.id_libro})">
-        <i class="bx bx-trash"></i> Quitar
+        <i class="bx bx-trash"></i>
         </button>
         </td>
         </tr>
@@ -282,18 +456,12 @@ function renderizarTablaLibros() {
 
     contenedorTabla.innerHTML = tabla;
 
-
-    // Ocultar el modal correctamente usando Bootstrap 5
-    const modalElement = document.getElementById('contenedorLibros');
-    const modalInstance = bootstrap.Modal.getInstance(modalElement);
     if (modalInstance) {
         modalInstance.hide();
     }
 
     contenedorLibrosSeleccionados.style.display = 'block';
 }
-
-
 
 
 function eliminarLibro(id_libro) {
