@@ -3,7 +3,7 @@ $titlePage = "Listado de Prestamos Pendientes";
 require_once("../components/sidebar.php");
 
 //* CONSULTA PARA CONSUMIR LOS DATOS DE LOS PRESTAMOS REALIZADOS
-$listaPrestamosLibros = $connection->prepare("SELECT g.*, u.nombres, u.apellidos, u.documento, u.tipo_documento FROM general_prestamos AS g INNER JOIN usuarios AS u ON (g.id_usuario = u.documento);");
+$listaPrestamosLibros = $connection->prepare("SELECT g.*, u.nombres, u.apellidos, u.documento, u.tipo_documento FROM general_prestamos AS g INNER JOIN usuarios AS u ON (g.id_usuario = u.documento) WHERE g.id_estado = 'pendiente';");
 $listaPrestamosLibros->execute();
 $prestarLibros = $listaPrestamosLibros->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -27,65 +27,45 @@ $prestarLibros = $listaPrestamosLibros->fetchAll(PDO::FETCH_ASSOC);
                         <thead>
                             <tr>
                                 <th>Acciones</th>
-                                <th>Horario del Prestamo</th>
-                                <th>Horario de Entrega</th>
+                                <th>ID Factura</th>
                                 <th>Datos Estudiante</th>
+                                <th>Fecha Registro</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($prestarLibros as $libroPrestado): ?>
                             <tr>
                                 <td>
-                                    <!-- <button class="btn btn-primary mb-2"
-                                        onclick="verDetalleLibro('<?= htmlspecialchars(addslashes($libroPrestado['nombre_libro'])) ?>', '../assets/img/<?= htmlspecialchars(addslashes($libroPrestado['imagen'])) ?>', '<?= htmlspecialchars(addslashes($libroPrestado['detalle'])) ?>')">
-                                        <i class="bx bx-show"></i>
-                                    </button> -->
-                                    <form method="GET" action="" class="d-inline">
-                                        <input type="hidden" name="id_employee-delete"
-                                            value="<?= $libroPrestado['id_prestamo'] ?>">
-                                        <input type="hidden" name="ruta" value="libros_activos.php">
-                                        <button class="btn btn-danger mb-2"
-                                            onclick="return confirm('¿Desea eliminar el registro?');" type="submit">
-                                            <i class="bx bx-trash" title="Eliminar"></i>
-                                        </button>
-                                    </form>
-                                    <form method="GET" action="editar_libro.php" class="d-inline">
-                                        <input type="hidden" name="id_employee-edit"
-                                            value="<?= $libroPrestado['id_prestamo'] ?>">
-                                        <input type="hidden" name="ruta" value="libros_activos.php">
-                                        <button class="btn btn-success mb-2"
-                                            onclick="return confirm('¿Desea actualizar el registro?');" type="submit">
-                                            <i class="bx bx-refresh" title="Actualizar"></i>
-                                        </button>
-                                    </form>
+                                    <a href="editar_prestamo.php?documento=<?= $libroPrestado['documento'] ?>&id_prestamo=<?= $libroPrestado['id_prestamo'] ?>"
+                                        class="btn btn-primary mb-2">
+                                        <i class="fas fa-eye"></i> Ver Prestamo
+                                    </a>
                                 </td>
                                 <td>
-                                    <ul>
-                                        <li><strong>Fecha:</strong>
-                                            <?= htmlspecialchars($libroPrestado['fecha_prestamo']) ?></li>
-                                        <li><strong>Hora:</strong>
-                                            <?= htmlspecialchars($libroPrestado['hora_prestamo']) ?>
-                                        </li>
-                                    </ul>
+                                    <?= htmlspecialchars($libroPrestado['id_prestamo']) ?>
                                 </td>
                                 <td>
-                                    <ul>
-                                        <li><strong>Fecha:</strong>
-                                            <?= htmlspecialchars($libroPrestado['fecha_entrega']) ?></li>
-                                        <li><strong>Hora:</strong>
-                                            <?= htmlspecialchars($libroPrestado['hora_entrega']) ?>
-                                        </li>
-                                    </ul>
-                                </td>
+                                    <ul style="text-align: left !important;">
+                                        <li><strong>Documento:</strong>
+                                            <?= htmlspecialchars($libroPrestado['documento']) ?></li>
 
-                                <td>
-                                    <ul>
-                                        <li><strong>Fecha:</strong>
-                                            <?= htmlspecialchars($libroPrestado['fecha_entrega']) ?></li>
-                                        <li><strong>Hora:</strong>
-                                            <?= htmlspecialchars($libroPrestado['hora_entrega']) ?>
-                                        </li>
+                                        <li><strong>Nombre Completo:</strong>
+                                            <?= htmlspecialchars($libroPrestado['nombres']) ?>
+                                            <?= htmlspecialchars($libroPrestado['apellidos']) ?></li>
                                     </ul>
+                                </td>
+                                <td>
+                                    <?= date('d/m/Y', strtotime($libroPrestado['fecha_registro'])) ?>
+                                </td>
+                                <td>
+                                    <?php if (strtolower($libroPrestado['id_estado']) === 'pendiente'): ?>
+                                    <span style="color: red; font-weight: bold;">
+                                        <?= strtoupper(htmlspecialchars($libroPrestado['id_estado'])) ?>
+                                    </span>
+                                    <?php else: ?>
+                                    <?= htmlspecialchars($libroPrestado['id_estado']) ?>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
