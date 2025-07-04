@@ -214,9 +214,8 @@ $libros = $libros_prestados->fetchAll(PDO::FETCH_ASSOC);
                                             <?php foreach ($libros_entregados as $libroEntregado): ?>
                                             <tr>
                                                 <td>
-                                                    <a href="editar_prestamo.php?documento=<?= $libroPrestado['documento'] ?>&id_prestamo=<?= $libroPrestado['id_prestamo'] ?>"
-                                                        class="btn btn-danger mb-2">
-                                                        <i class="fas fa-check-circle"></i> Entregar
+                                                    <a href="#" class="btn btn-success mb-2">
+                                                        <i class="fas fa-check-circle"></i> Entregado
                                                     </a>
                                                 </td>
                                                 <td>
